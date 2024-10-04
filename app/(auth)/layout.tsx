@@ -7,7 +7,7 @@ export default function Layout({ children }: PropsWithChildren) {
 			aria-label="layout-auth"
 			className="relative w-full min-h-screen flex justify-center items-center"
 		>
-			<div className="absolute top-[5%] left-1/2 -translate-x-1/2">
+			<div className="absolute top-[50px] left-[50px]">
 				<ThemeToggle />
 			</div>
 			{children}
