@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "@/components/themes/theme-provider";
 
 const fontPrimary = Montserrat({
 	subsets: ["latin"],
@@ -33,11 +34,17 @@ export default function RootLayout({
 }>) {
 	return (
 		<ClerkProvider>
-			<html lang="en">
+			<html lang="en" suppressHydrationWarning>
 				<body
 					className={`${fontPrimary.variable} ${fontSecondary.variable} font-secondary antialiased`}
 				>
-					{children}
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+					>
+						{children}
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
