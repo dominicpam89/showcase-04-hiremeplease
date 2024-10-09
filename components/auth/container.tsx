@@ -22,7 +22,7 @@ export default function AuthContainer({ children, authType }: Props) {
 			? { link: "/register", text: "Don't have account? Register here" }
 			: { link: "/login", text: "Already have account? Login here" };
 	return (
-		<Card className="w-full max-w-xl min-w-[420px] mx-auto p-8">
+		<Card className="w-full max-w-xl mx-auto p-4 md:p-8">
 			<CardHeader>
 				<CardTitle>{title}</CardTitle>
 				<CardDescription>{description}</CardDescription>
