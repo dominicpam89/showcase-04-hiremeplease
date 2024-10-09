@@ -2,6 +2,7 @@ import { auth } from "@/firebase.config";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signOut,
 	User,
 } from "firebase/auth";
 
@@ -37,6 +38,22 @@ export async function signupWithEmailPassword({
 		return user;
 	} catch (error) {
 		console.error(error);
+		throw error;
+	}
+}
+
+export async function logout() {
+	try {
+		await signOut(auth);
+
+		// Inform the server to clear the session or cookie
+		await fetch("/api/auth", {
+			method: "POST",
+		});
+
+		return { message: "logged out successfully" };
+	} catch (error) {
+		console.error("Error logging out:", error);
 		throw error;
 	}
 }
