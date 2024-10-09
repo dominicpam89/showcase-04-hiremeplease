@@ -1,5 +1,5 @@
 "use client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createContext, useEffect, useState } from "react";
 import {
 	signinWithEmailPassword,
