@@ -1,6 +1,7 @@
-import { FormLoginType } from "./../models/frontend/auth.model";
-import { useState } from "react";
+import { FormLoginType } from "@/lib/models/frontend/auth.model";
+import { useContext, useState } from "react";
 import { FormRegisterType } from "@/lib/models/frontend/auth.model";
+import { ContextAuthMock } from "../context/auth.context.mock";
 
 const simulateDelay = async (delay: number = 800) => {
 	return new Promise((resolve) => {
@@ -8,7 +9,7 @@ const simulateDelay = async (delay: number = 800) => {
 	});
 };
 
-export const useContextMockProps = () => {
+export const useContextAuthMockProps = () => {
 	const [isPending, setPending] = useState(false);
 	const [isSuccess, setSuccess] = useState(false);
 	const [isError, setIsError] = useState(false);
@@ -55,4 +56,11 @@ export const useContextMockProps = () => {
 		mockAuth,
 	};
 };
-export type UseContextMockProps = ReturnType<typeof useContextMockProps>;
+export type UseContextAuthMockProps = ReturnType<
+	typeof useContextAuthMockProps
+>;
+
+export const useContextAuthMock = () => {
+	const context = useContext(ContextAuthMock);
+	return context as UseContextAuthMockProps;
+};

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function authMiddleware(request: NextRequest) {
 	// Get the "auth" cookie
 	const authCookie = request.cookies.get("auth");
 
@@ -23,6 +23,11 @@ export function middleware(request: NextRequest) {
 
 	// If parsing fails or userId is missing, redirect to login
 	return NextResponse.redirect(new URL("/login", request.url));
+}
+
+export function middleware(request: NextRequest) {
+	// return authMiddleware(request);
+	return NextResponse.next();
 }
 
 export const config = {
