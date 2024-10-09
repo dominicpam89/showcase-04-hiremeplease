@@ -17,6 +17,8 @@ export type ContextAuthType = {
 		{
 			email: string;
 			password: string;
+			firstName?: string;
+			lastName?: string;
 		},
 		unknown
 	>;

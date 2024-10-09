@@ -4,6 +4,7 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	User,
+	updateProfile,
 } from "firebase/auth";
 
 export async function signinWithEmailPassword({
@@ -25,9 +26,13 @@ export async function signinWithEmailPassword({
 export async function signupWithEmailPassword({
 	email,
 	password,
+	firstName = "",
+	lastName = "",
 }: {
 	email: string;
 	password: string;
+	firstName?: string;
+	lastName?: string;
 }) {
 	try {
 		const { user } = await createUserWithEmailAndPassword(
@@ -35,6 +40,9 @@ export async function signupWithEmailPassword({
 			email,
 			password
 		);
+		await updateProfile(user, {
+			displayName: firstName + " " + lastName,
+		});
 		return user;
 	} catch (error) {
 		console.error(error);
