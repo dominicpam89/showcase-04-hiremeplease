@@ -1,5 +1,5 @@
 import { CardTitle } from "@/components/ui/card";
-import ImageUI from "@/components/ui-awesome/image";
+import ImageUI from "@/components/ui-custom/image";
 
 export default function AuthCardHeaderTitle() {
 	return (
