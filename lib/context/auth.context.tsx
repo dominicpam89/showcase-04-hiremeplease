@@ -1,11 +1,12 @@
 "use client";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
 	signinWithEmailPassword,
 	signupWithEmailPassword,
 	getLimitedUserInfo,
 	LimitedUserInfoType,
+	sessionUpdate,
 } from "@/lib/services/auth.service";
 import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { auth } from "@/firebase.config";
@@ -24,56 +25,20 @@ export default function ContextAuthProvider({ children }: Props) {
 		mutationFn: signupWithEmailPassword,
 	});
 
-	const userState = useQuery({
-		queryKey: ["auth"],
-		queryFn: () =>
-			new Promise<LimitedUserInfoType | null>((resolve) => {
-				onAuthStateChanged(auth, (user) => {
-					if (user) resolve(getLimitedUserInfo(user));
-					else resolve(null);
-				});
-			}),
-	});
+	const [userState, setUserState] = useState<LimitedUserInfoType | null>(null);
 
 	useEffect(() => {
-		const currentUser = userState.data;
-		if (!currentUser) {
-			return;
-		}
-
-		const setupToken = async () => {
-			const user = auth.currentUser;
-			if (user) {
-				try {
-					const token = await user.getIdToken();
-
-					// Send the user token to your server
-					await fetch("/api/auth", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({ token }),
-					});
-				} catch (error) {
-					console.error("Failed to send token to server:", error);
-				}
-			}
-		};
-
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			if (user) {
-				await setupToken(); // Handle when user signs in
+				await sessionUpdate(user);
+				setUserState(getLimitedUserInfo(user));
 			} else {
-				// Handle when user signs out or session expires
-				await fetch("/api/auth", {
-					method: "POST",
-				});
+				await sessionUpdate(null);
+				setUserState(null);
 			}
 		});
-
-		return () => unsubscribe(); // Clean up the subscription on component unmount
-	}, [userState]);
+		return () => unsubscribe(); // Clean up
+	}, [auth]);
 
 	return (
 		<ContextAuth.Provider value={{ signinState, signupState, userState }}>

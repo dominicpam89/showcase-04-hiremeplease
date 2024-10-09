@@ -7,6 +7,28 @@ import {
 	updateProfile,
 } from "firebase/auth";
 
+export async function sessionUpdate(user: User | null) {
+	if (user) {
+		await fetch("/api/auth/session", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				loggedIn: true,
+				userId: user.uid,
+				email: user.email,
+			}),
+		});
+	} else {
+		await fetch("/api/auth/session", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				loggedIn: false,
+			}),
+		});
+	}
+}
+
 export async function signinWithEmailPassword({
 	email,
 	password,

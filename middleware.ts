@@ -1,17 +1,28 @@
-// middleware.ts
-
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-	const token = request.cookies.get("auth");
+	// Get the "auth" cookie
+	const authCookie = request.cookies.get("auth");
 
-	if (!token) {
-		// Redirect to login page if no token is found
+	// If no auth cookie is found, redirect to login
+	if (!authCookie) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
-	// Token is present, allow access
-	return NextResponse.next();
+	try {
+		// Parse the auth cookie
+		const { userId } = JSON.parse(authCookie.value);
+
+		// If the userId exists, allow access
+		if (userId) {
+			return NextResponse.next();
+		}
+	} catch (error) {
+		console.error("Failed to parse auth cookie:", error);
+	}
+
+	// If parsing fails or userId is missing, redirect to login
+	return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {
