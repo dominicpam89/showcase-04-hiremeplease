@@ -10,22 +10,8 @@ import InputField from "@/components/ui-custom/input-field";
 import { Button } from "@/components/ui/button";
 import InputGroup from "@/components/ui-custom/input-group";
 import InputFieldPassword from "@/components/ui-custom/input-field-password";
-import { useState } from "react";
-import { TypeRegisterFormState } from "@/lib/types/form.type";
-import { actionRegister } from "@/lib/actions/register.action";
 
 export default function FormRegisterUI() {
-	const [formResult, setFormResult] = useState<TypeRegisterFormState>({
-		error: false,
-		message: "",
-		data: {
-			firstName: "",
-			lastName: "",
-			email: "",
-			password: "",
-			confirmationPassword: "",
-		},
-	});
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "",
@@ -39,17 +25,8 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		const formData = new FormData();
-		formData.append("firstName", data.firstName || "");
-		formData.append("lastName", data.lastName || "");
-		formData.append("email", data.email);
-		formData.append("password", data.password);
-		formData.append("confirmationPassword", data.confirmationPassword);
-		const result = await actionRegister(formResult, formData);
-		setFormResult(result);
+		console.log(data);
 	};
-
-	console.log(formResult);
 
 	return (
 		<FormProvider {...hookForm}>

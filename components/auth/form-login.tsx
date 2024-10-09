@@ -9,19 +9,8 @@ import InputField from "@/components/ui-custom/input-field";
 import InputFieldPassword from "@/components/ui-custom/input-field-password";
 import { AtSignIcon, VenetianMaskIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { actionLogin } from "@/lib/actions/login.action";
-import { useState } from "react";
-import { TypeLoginFormState } from "@/lib/types/form.type";
 
 export default function FormLoginUI() {
-	const [formResult, setFormResult] = useState<TypeLoginFormState>({
-		error: false,
-		message: "",
-		data: {
-			email: "",
-			password: "",
-		},
-	});
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
 			email: "",
@@ -33,11 +22,7 @@ export default function FormLoginUI() {
 	});
 
 	const onValid: SubmitHandler<FormLoginType> = async (data) => {
-		const formData = new FormData();
-		formData.append("email", data.email);
-		formData.append("password", data.password);
-		const result = await actionLogin(formResult, formData);
-		setFormResult(result);
+		console.log(data);
 	};
 
 	return (
