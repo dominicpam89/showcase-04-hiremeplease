@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/themes/theme-provider";
+import QueryClientProvider from "@/lib/context/tanstack.context";
+import ContextAuthProvider from "@/lib/context/auth.context";
 
 const fontPrimary = Montserrat({
 	subsets: ["latin"],
@@ -37,7 +39,9 @@ export default function RootLayout({
 				className={`${fontPrimary.variable} ${fontSecondary.variable} font-secondary antialiased`}
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					{children}
+					<QueryClientProvider>
+						<ContextAuthProvider>{children}</ContextAuthProvider>
+					</QueryClientProvider>
 				</ThemeProvider>
 			</body>
 		</html>
