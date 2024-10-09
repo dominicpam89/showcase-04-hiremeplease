@@ -2,6 +2,7 @@ import { auth } from "@/firebase.config";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	User,
 } from "firebase/auth";
 
 export async function signinWithEmailPassword({
@@ -39,3 +40,9 @@ export async function signupWithEmailPassword({
 		throw error;
 	}
 }
+
+export function getLimitedUserInfo(user: User) {
+	const { email, emailVerified, displayName, uid, photoURL } = user;
+	return { email, emailVerified, displayName, uid, photoURL };
+}
+export type LimitedUserInfoType = ReturnType<typeof getLimitedUserInfo>;

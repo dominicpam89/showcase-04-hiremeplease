@@ -1,13 +1,15 @@
 "use client";
-import { useMutation } from "@tanstack/react-query";
-import { createContext, useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createContext } from "react";
 import {
 	signinWithEmailPassword,
 	signupWithEmailPassword,
+	getLimitedUserInfo,
+	LimitedUserInfoType,
 } from "@/lib/services/auth.service";
 import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { auth } from "@/firebase.config";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const ContextAuth = createContext<ContextAuthType | null>(null);
 
@@ -22,23 +24,19 @@ export default function ContextAuthProvider({ children }: Props) {
 		mutationFn: signupWithEmailPassword,
 	});
 
-	const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setCurrentUser(user);
-			} else {
-				setCurrentUser(null);
-			}
-		});
-		return () => {
-			unsubscribe();
-		};
-	}, [auth]);
+	const userState = useQuery({
+		queryKey: ["auth"],
+		queryFn: () =>
+			new Promise<LimitedUserInfoType | null>((resolve) => {
+				onAuthStateChanged(auth, (user) => {
+					if (user) resolve(getLimitedUserInfo(user));
+					else resolve(null);
+				});
+			}),
+	});
 
 	return (
-		<ContextAuth.Provider value={{ signinState, signupState, currentUser }}>
+		<ContextAuth.Provider value={{ signinState, signupState, userState }}>
 			{children}
 		</ContextAuth.Provider>
 	);
