@@ -10,13 +10,19 @@ import InputFieldPassword from "@/components/ui-custom/input-field-password";
 import { AtSignIcon, VenetianMaskIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
-import Link from "next/link";
+import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
+import FormErrorUI from "./form-error";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import AuthSwitchButton from "./switch";
 
 export default function FormLoginUI() {
+	const { createMockAuth, data, error, isPending, isSuccess, isError } =
+		useContextAuthMock();
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
-			email: "",
-			password: "",
+			email: "testing@email.com",
+			password: "Password12345",
 		},
 		resolver: zodResolver(formLoginSchema),
 		mode: "onBlur",
@@ -24,8 +30,15 @@ export default function FormLoginUI() {
 	});
 
 	const onValid: SubmitHandler<FormLoginType> = async (data) => {
-		console.log(data);
+		const mockAuth = createMockAuth("login");
+		await mockAuth(data, true, false);
 	};
+
+	const router = useRouter();
+
+	useEffect(() => {
+		if (isSuccess) router.push("/auth/success?type=login");
+	}, [isSuccess, isError, data]);
 
 	return (
 		<FormProvider {...hookForm}>
@@ -34,6 +47,7 @@ export default function FormLoginUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
+				{isError && <FormErrorUI message={error.message} />}
 				<InputField<FormLoginType>
 					name="email"
 					placeholder="johndoe@email.com"
@@ -44,11 +58,13 @@ export default function FormLoginUI() {
 					placeholder="password"
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
-				<Button type="submit">Login with Email</Button>
-				<AuthProvidersUI disabled={false} />
-				<Button asChild variant="link" className="mt-2">
-					<Link href="/register">Don&apos;t have account?</Link>
+				<Button type="submit" disabled={isPending}>
+					Login with Email
 				</Button>
+				<AuthProvidersUI disabled={isPending} />
+				<AuthSwitchButton disabled={isPending} link="/register">
+					Don&apos;t have account?
+				</AuthSwitchButton>
 			</form>
 		</FormProvider>
 	);

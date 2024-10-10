@@ -14,8 +14,8 @@ import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import FormErrorUI from "./form-error";
-import Link from "next/link";
 import AuthProvidersUI from "./providers";
+import AuthSwitchButton from "./switch";
 
 export default function FormRegisterUI() {
 	const { createMockAuth, isPending, isSuccess, isError, data, error } =
@@ -82,14 +82,9 @@ export default function FormRegisterUI() {
 					Register with Email
 				</Button>
 				<AuthProvidersUI disabled={isPending} />
-				<Button
-					asChild
-					variant="link"
-					className="mt-2"
-					disabled={isPending}
-				>
-					<Link href="/login">Already have account?</Link>
-				</Button>
+				<AuthSwitchButton disabled={isPending} link="/login">
+					Already have account?
+				</AuthSwitchButton>
 			</form>
 		</FormProvider>
 	);
