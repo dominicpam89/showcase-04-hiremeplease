@@ -47,7 +47,7 @@ export default function FormLoginUI() {
 				<Button type="submit">Login with Email</Button>
 				<AuthProvidersUI disabled={false} />
 				<Button asChild variant="link" className="mt-2">
-					<Link href="/login">Don&apos;t have account?</Link>
+					<Link href="/register">Don&apos;t have account?</Link>
 				</Button>
 			</form>
 		</FormProvider>

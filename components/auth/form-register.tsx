@@ -81,8 +81,13 @@ export default function FormRegisterUI() {
 				<Button type="submit" disabled={isPending}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={false} />
-				<Button asChild variant="link" className="mt-2">
+				<AuthProvidersUI disabled={isPending} />
+				<Button
+					asChild
+					variant="link"
+					className="mt-2"
+					disabled={isPending}
+				>
 					<Link href="/login">Already have account?</Link>
 				</Button>
 			</form>
