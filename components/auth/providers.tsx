@@ -2,7 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
-export default function AuthProvidersUI() {
+interface Props {
+	disabled: boolean;
+}
+export default function AuthProvidersUI({ disabled = false }: Props) {
 	const defaultStyle = "bg-inherit text-inherit mr-2";
 	const btnStyle = "w-full py-5";
 	const loginWithGoogle = () => {};
@@ -10,12 +13,14 @@ export default function AuthProvidersUI() {
 	return (
 		<div
 			aria-label="auth-providers-container"
-			className="mt-4 w-full flex gap-3 items-center max-sm:flex-col"
+			className="mt-2 w-full flex gap-3 items-center max-sm:flex-col"
 		>
 			<Button
 				variant="outline"
 				className={btnStyle}
 				size="lg"
+				type="button"
+				disabled={disabled}
 				onClick={loginWithFacebook}
 			>
 				<FaFacebook className={defaultStyle} />
@@ -25,6 +30,8 @@ export default function AuthProvidersUI() {
 				variant="outline"
 				className={btnStyle}
 				size="lg"
+				type="button"
+				disabled={disabled}
 				onClick={loginWithGoogle}
 			>
 				<FaGoogle className={defaultStyle} />

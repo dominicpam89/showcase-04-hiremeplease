@@ -1,7 +1,9 @@
-import { FormLoginType } from "@/lib/models/frontend/auth.model";
+import type {
+	FormLoginType,
+	FormRegisterType,
+} from "@/lib/models/frontend/auth.model";
 import { useContext, useState } from "react";
-import { FormRegisterType } from "@/lib/models/frontend/auth.model";
-import { ContextAuthMock } from "../context/auth.context.mock";
+import { ContextAuthMock } from "@/lib/context/auth.context.mock";
 
 const simulateDelay = async (delay: number = 800) => {
 	return new Promise((resolve) => {
@@ -14,14 +16,9 @@ export const useContextAuthMockProps = () => {
 	const [isSuccess, setSuccess] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [error, setError] = useState({ message: "" });
-	const [data, setData] = useState<FormRegisterType | FormLoginType | null>(
-		null
-	);
+	const [data, setData] = useState<MockUser | null>(null);
 
-	const mockAuth = async (
-		inputData: FormRegisterType | FormLoginType,
-		setFail: boolean
-	) => {
+	const createMockAuth = (type: "register" | "login") => {
 		// Reset states before beginning authentication process
 		setPending(true);
 		setSuccess(false);
@@ -29,22 +26,37 @@ export const useContextAuthMockProps = () => {
 		setError({ message: "" });
 		setData(null);
 
-		await simulateDelay(800);
+		type InputData<T extends typeof type> = T extends "register"
+			? FormRegisterType
+			: FormLoginType;
 
-		// Handle error case early
-		if (setFail) {
-			setIsError(true);
-			setError({ message: "Mock error!" });
-			setPending(false); // Stop pending state immediately if failure
-			return;
-		}
+		return async function (
+			inputData: InputData<typeof type>,
+			mockFail: boolean = false,
+			mockVerified: boolean = false
+		) {
+			await simulateDelay(800);
 
-		// Success case
-		setData(inputData);
-		await simulateDelay(1000); // Optional delay for successful case
-		setSuccess(true);
+			// Handle error case early
+			if (mockFail) {
+				setIsError(true);
+				setError({ message: "Mock error!" });
+				setPending(false); // Stop pending state immediately if failure
+				return;
+			}
 
-		setPending(false);
+			// Success case
+			setData({
+				email: inputData.email,
+				password: inputData.password,
+				uid: inputData.email,
+				emailVerified: mockVerified,
+			});
+			await simulateDelay(1000); // Optional delay for successful case
+			setSuccess(true);
+
+			setPending(false);
+		};
 	};
 
 	return {
@@ -53,7 +65,7 @@ export const useContextAuthMockProps = () => {
 		isError,
 		error,
 		data,
-		mockAuth,
+		createMockAuth,
 	};
 };
 export type UseContextAuthMockProps = ReturnType<

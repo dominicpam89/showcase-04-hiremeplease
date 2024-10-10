@@ -13,9 +13,12 @@ import { Button } from "@/components/ui/button";
 import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import FormErrorUI from "./form-error";
+import Link from "next/link";
+import AuthProvidersUI from "./providers";
 
 export default function FormRegisterUI() {
-	const { mockAuth, isPending, isSuccess, isError, data } =
+	const { createMockAuth, isPending, isSuccess, isError, data, error } =
 		useContextAuthMock();
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
@@ -30,14 +33,14 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		await mockAuth(data, false);
+		const mockAuth = createMockAuth("register");
+		await mockAuth(data, true, false);
 	};
 
 	const router = useRouter();
 
 	useEffect(() => {
 		if (isSuccess) router.push("/auth/success?type=register");
-		if (isError) router.push(`/auth/fail?type=register`);
 	}, [isSuccess, isError, data]);
 
 	return (
@@ -47,6 +50,7 @@ export default function FormRegisterUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
+				{isError && <FormErrorUI message={error.message} />}
 				<InputGroup twClasses="max-sm:flex-col">
 					<InputField<FormRegisterType>
 						name="firstName"
@@ -76,6 +80,10 @@ export default function FormRegisterUI() {
 				/>
 				<Button type="submit" disabled={isPending}>
 					Register with Email
+				</Button>
+				<AuthProvidersUI disabled={false} />
+				<Button asChild variant="link" className="mt-2">
+					<Link href="/login">Already have account?</Link>
 				</Button>
 			</form>
 		</FormProvider>

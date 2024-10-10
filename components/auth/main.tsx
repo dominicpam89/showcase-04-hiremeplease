@@ -2,18 +2,18 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui-custom/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import FormRegisterUI from "./form-register";
+import FormLoginUI from "./form-login";
 
 interface Props {
-	children: React.ReactNode;
 	authType: "login" | "register";
 }
-export default function AuthContainer({ children, authType }: Props) {
+export default function AuthMainForm({ authType }: Props) {
 	const title = authType === "login" ? "Login" : "Register";
 	const description =
 		authType === "register" ? "Register description" : "Login description";
@@ -27,12 +27,10 @@ export default function AuthContainer({ children, authType }: Props) {
 				<CardTitle>{title}</CardTitle>
 				<CardDescription>{description}</CardDescription>
 			</CardHeader>
-			<CardContent>{children}</CardContent>
-			<CardFooter>
-				<Button asChild variant="link">
-					<Link href={footerLink.link}>{footerLink.text}</Link>
-				</Button>
-			</CardFooter>
+			<CardContent>
+				{authType == "register" && <FormRegisterUI />}
+				{authType == "login" && <FormLoginUI />}
+			</CardContent>
 		</Card>
 	);
 }

@@ -9,6 +9,8 @@ import InputField from "@/components/ui-custom/input-field";
 import InputFieldPassword from "@/components/ui-custom/input-field-password";
 import { AtSignIcon, VenetianMaskIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AuthProvidersUI from "./providers";
+import Link from "next/link";
 
 export default function FormLoginUI() {
 	const hookForm = useForm<FormLoginType>({
@@ -43,6 +45,10 @@ export default function FormLoginUI() {
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
 				<Button type="submit">Login with Email</Button>
+				<AuthProvidersUI disabled={false} />
+				<Button asChild variant="link" className="mt-2">
+					<Link href="/login">Don&apos;t have account?</Link>
+				</Button>
 			</form>
 		</FormProvider>
 	);

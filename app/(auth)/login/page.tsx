@@ -1,12 +1,5 @@
-import AuthContainer from "@/components/auth/container";
-import FormLoginUI from "@/components/auth/form-login";
-import AuthProvidersUI from "@/components/auth/providers";
+import AuthMainForm from "@/components/auth/main";
 
 export default function Page() {
-	return (
-		<AuthContainer authType="login">
-			<FormLoginUI />
-			<AuthProvidersUI />
-		</AuthContainer>
-	);
+	return <AuthMainForm authType="login" />;
 }
