@@ -3,30 +3,42 @@ import {
 	formRegisterSchema,
 	type FormRegisterType,
 } from "@/lib/models/frontend/auth.model";
+import InputGroup from "@/components/ui-custom/input-group";
+import InputFieldPassword from "@/components/ui-custom/input-field-password";
+import InputField from "@/components/ui-custom/input-field";
 import { AtSignIcon, VenetianMaskIcon, ShieldCheckIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import InputField from "@/components/ui-custom/input-field";
 import { Button } from "@/components/ui/button";
-import InputGroup from "@/components/ui-custom/input-group";
-import InputFieldPassword from "@/components/ui-custom/input-field-password";
+import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function FormRegisterUI() {
+	const { mockAuth, isPending, isSuccess, isError, data } =
+		useContextAuthMock();
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
-			firstName: "",
-			lastName: "",
-			email: "",
-			password: "",
-			confirmationPassword: "",
+			firstName: "First",
+			lastName: "Last",
+			email: "mockemail@email.com",
+			password: "Password12345",
+			confirmationPassword: "Password12345",
 		},
 		resolver: zodResolver(formRegisterSchema),
 		mode: "onBlur",
 		reValidateMode: "onChange",
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		console.log(data);
+		await mockAuth(data, false);
 	};
+
+	const router = useRouter();
+
+	useEffect(() => {
+		if (isSuccess) router.push("/auth/success?type=register");
+		if (isError) router.push(`/auth/fail?type=register`);
+	}, [isSuccess, isError, data]);
 
 	return (
 		<FormProvider {...hookForm}>
@@ -62,7 +74,9 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit">Register with Email</Button>
+				<Button type="submit" disabled={isPending}>
+					Register with Email
+				</Button>
 			</form>
 		</FormProvider>
 	);
