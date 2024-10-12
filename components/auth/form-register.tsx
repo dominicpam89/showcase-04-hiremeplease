@@ -34,7 +34,7 @@ export default function FormRegisterUI() {
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
 		const mockAuth = createMockAuth("register");
-		await mockAuth(data, true, false);
+		await mockAuth(data, false, false);
 	};
 
 	const router = useRouter();

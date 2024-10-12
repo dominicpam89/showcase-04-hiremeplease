@@ -31,7 +31,7 @@ export default function FormLoginUI() {
 
 	const onValid: SubmitHandler<FormLoginType> = async (data) => {
 		const mockAuth = createMockAuth("login");
-		await mockAuth(data, true, false);
+		await mockAuth(data, false, false);
 	};
 
 	const router = useRouter();
