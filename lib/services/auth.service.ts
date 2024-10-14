@@ -9,13 +9,14 @@ import {
 
 export async function sessionUpdate(user: User | null) {
 	if (user) {
+		const limitedUserInfo: LimitedUserInfoType = getLimitedUserInfo(user);
+		const token = user.getIdToken(true);
 		await fetch("/api/auth/session", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				loggedIn: true,
-				userId: user.uid,
-				email: user.email,
+				token,
+				limitedUserInfo,
 			}),
 		});
 	} else {
@@ -23,7 +24,7 @@ export async function sessionUpdate(user: User | null) {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				loggedIn: false,
+				token: null,
 			}),
 		});
 	}

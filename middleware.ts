@@ -1,37 +1,22 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 export function authMiddleware(request: NextRequest) {
-	// Get the "auth" cookie
-	const authCookie = request.cookies.get("auth");
+	const sessionData = request.cookies.get("session-token");
 
-	// If no auth cookie is found, redirect to login
-	if (!authCookie) {
-		return NextResponse.redirect(new URL("/login", request.url));
+	// If session token is missing, redirect to login
+	if (!sessionData) {
+		return NextResponse.redirect("/login");
 	}
 
-	try {
-		// Parse the auth cookie
-		const { userId } = JSON.parse(authCookie.value);
-
-		// If the userId exists, allow access
-		if (userId) {
-			return NextResponse.next();
-		}
-	} catch (error) {
-		console.error("Failed to parse auth cookie:", error);
-	}
-
-	// If parsing fails or userId is missing, redirect to login
-	return NextResponse.redirect(new URL("/login", request.url));
+	// If session token exists, allow access to the page
+	return NextResponse.next();
 }
 
 export function middleware(request: NextRequest) {
 	/**
 	 * temporary turn off the routes protection by auth user
 	 * */
-	// return authMiddleware(request);
-
-	return NextResponse.next();
+	return authMiddleware(request);
 }
 
 export const config = {
