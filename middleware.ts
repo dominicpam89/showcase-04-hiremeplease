@@ -5,7 +5,7 @@ export function authMiddleware(request: NextRequest) {
 
 	// If session token is missing, redirect to login
 	if (!sessionData) {
-		return NextResponse.redirect("/login");
+		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
 	// If session token exists, allow access to the page
