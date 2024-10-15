@@ -10,15 +10,9 @@ import InputFieldPassword from "@/components/ui-custom/input-field-password";
 import { AtSignIcon, VenetianMaskIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
-import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
-import FormErrorUI from "./form-error";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import AuthSwitchButton from "./switch";
 
 export default function FormLoginUI() {
-	const { createMockAuth, data, error, isPending, isSuccess, isError } =
-		useContextAuthMock();
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
 			email: "testing@email.com",
@@ -29,16 +23,7 @@ export default function FormLoginUI() {
 		reValidateMode: "onChange",
 	});
 
-	const onValid: SubmitHandler<FormLoginType> = async (data) => {
-		const mockAuth = createMockAuth("login");
-		await mockAuth(data, false, false);
-	};
-
-	const router = useRouter();
-
-	useEffect(() => {
-		if (isSuccess) router.push("/auth/success?type=login");
-	}, [isSuccess, isError, data]);
+	const onValid: SubmitHandler<FormLoginType> = async (data) => {};
 
 	return (
 		<FormProvider {...hookForm}>
@@ -47,7 +32,7 @@ export default function FormLoginUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
-				{isError && <FormErrorUI message={error.message} />}
+				{/* {isError && <FormErrorUI message={error.message} />} */}
 				<InputField<FormLoginType>
 					name="email"
 					placeholder="johndoe@email.com"
@@ -58,11 +43,11 @@ export default function FormLoginUI() {
 					placeholder="password"
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isPending}>
+				<Button type="submit" disabled={false}>
 					Login with Email
 				</Button>
-				<AuthProvidersUI disabled={isPending} />
-				<AuthSwitchButton disabled={isPending} link="/register">
+				<AuthProvidersUI disabled={false} />
+				<AuthSwitchButton disabled={false} link="/register">
 					Don&apos;t have account?
 				</AuthSwitchButton>
 			</form>

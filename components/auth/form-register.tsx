@@ -10,17 +10,16 @@ import { AtSignIcon, VenetianMaskIcon, ShieldCheckIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import FormErrorUI from "./form-error";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { useFormState } from "react-dom";
+import { actionRegister } from "@/lib/actions/register.action";
 
 export default function FormRegisterUI() {
-	const {
-		signupState: { mutate, isSuccess, isError, error, isPending },
-	} = useContextAuth();
+	const [formState, formAction] = useFormState(actionRegister, {
+		status: "idle",
+		message: "",
+	});
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "First",
@@ -34,18 +33,16 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		console.log("debug 2: onValid called");
-		mutate(data);
+		const formData = new FormData();
+		formData.append("email", data.email);
+		formData.append("password", data.password);
+		formData.append("confirmationPassword", data.confirmationPassword);
+		formData.append("firstName", data.firstName || "");
+		formData.append("lastName", data.lastName || "");
+		formAction(formData);
 	};
 
-	const router = useRouter();
-
-	useEffect(() => {
-		if (isSuccess) {
-			console.log("debug 3: isSuccess, router push after");
-			router.push("/auth/success?type=register");
-		}
-	}, [isSuccess]);
+	console.log(formState);
 
 	return (
 		<FormProvider {...hookForm}>
@@ -54,7 +51,7 @@ export default function FormRegisterUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
-				{isError && <FormErrorUI message={error.message} />}
+				{/* {isError && <FormErrorUI message={error.message} />} */}
 				<InputGroup twClasses="max-sm:flex-col">
 					<InputField<FormRegisterType>
 						name="firstName"
@@ -82,11 +79,11 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isPending}>
+				<Button type="submit" disabled={false}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={isPending} />
-				<AuthSwitchButton disabled={isPending} link="/login">
+				<AuthProvidersUI disabled={false} />
+				<AuthSwitchButton disabled={false} link="/login">
 					Already have account?
 				</AuthSwitchButton>
 			</form>

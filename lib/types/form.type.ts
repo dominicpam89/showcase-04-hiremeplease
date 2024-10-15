@@ -11,6 +11,5 @@ export type TypeLoginFormState = {
 
 export type TypeRegisterFormState = {
 	message: string;
-	error: boolean;
-	data: FormRegisterType;
+	status: "error" | "success" | "idle";
 };

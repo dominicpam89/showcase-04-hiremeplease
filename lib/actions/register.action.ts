@@ -1,24 +1,21 @@
 "use server";
+import {
+	formRegisterSchema,
+	FormRegisterType,
+} from "@/lib/models/frontend/auth.model";
 
-import { TypeRegisterFormState } from "@/lib/types/form.type";
-import { formRegisterSchema } from "@/lib/models/frontend/auth.model";
-
-export async function actionRegister(
-	prevState: TypeRegisterFormState,
-	data: FormData
-): Promise<TypeRegisterFormState> {
-	const formObject = Object.fromEntries(data.entries());
+export async function actionRegister(prevState: unknown, data: FormData) {
+	prevState;
+	const formObject = Object.fromEntries(data.entries()) as FormRegisterType;
 	const validate = formRegisterSchema.safeParse(formObject);
 	if (!validate.success) {
 		return {
-			data: prevState.data,
-			error: true,
+			status: "error",
 			message: "Validation failed",
 		};
 	} else {
 		return {
-			data: prevState.data,
-			error: false,
+			status: "success",
 			message: "Successfully submitted your registration form!",
 		};
 	}

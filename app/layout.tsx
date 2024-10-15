@@ -4,7 +4,6 @@ import "./globals.css";
 import ThemeProvider from "@/components/themes/theme-provider";
 import QueryClientProvider from "@/lib/context/tanstack.context";
 import ContextAuthProvider from "@/lib/context/auth.context";
-import ContextAuthMockProvider from "@/lib/context/auth.context.mock";
 
 const fontPrimary = Montserrat({
 	subsets: ["latin"],
@@ -41,11 +40,7 @@ export default function RootLayout({
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<QueryClientProvider>
-						<ContextAuthProvider>
-							<ContextAuthMockProvider>
-								{children}
-							</ContextAuthMockProvider>
-						</ContextAuthProvider>
+						<ContextAuthProvider>{children}</ContextAuthProvider>
 					</QueryClientProvider>
 				</ThemeProvider>
 			</body>
