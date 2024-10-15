@@ -2,8 +2,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { createContext, useEffect, useState } from "react";
 import {
-	signinWithEmailPassword,
-	signupWithEmailPassword,
+	loginWithPassword,
+	registerWithPassword,
 	getLimitedUserInfo,
 	LimitedUserInfoType,
 	sessionUpdate,
@@ -19,16 +19,17 @@ interface Props {
 }
 export default function ContextAuthProvider({ children }: Props) {
 	const signinState = useMutation({
-		mutationFn: signinWithEmailPassword,
+		mutationFn: loginWithPassword,
 	});
 	const signupState = useMutation({
-		mutationFn: signupWithEmailPassword,
+		mutationFn: registerWithPassword,
 	});
 
 	const [userState, setUserState] = useState<LimitedUserInfoType | null>(null);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
+			console.log("debug 4: onAuthStateChanged, user: ", user);
 			if (user) {
 				await sessionUpdate(user);
 				setUserState(getLimitedUserInfo(user));

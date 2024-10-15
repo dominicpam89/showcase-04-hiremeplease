@@ -1,13 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 export function authMiddleware(request: NextRequest) {
+	console.log("debug server: auth middleware run");
 	const sessionData = request.cookies.get("session-token");
+	console.log("debug server: sessionData, \n", sessionData);
 
 	// If session token is missing, redirect to login
 	if (!sessionData) {
+		console.log("debug server: if there's no session Data, this is run");
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
+	console.log("debug server: if sessionData exist");
 	// If session token exists, allow access to the page
 	return NextResponse.next();
 }

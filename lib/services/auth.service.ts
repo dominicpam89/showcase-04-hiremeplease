@@ -8,7 +8,9 @@ import {
 } from "firebase/auth";
 
 export async function sessionUpdate(user: User | null) {
+	console.log("debug: sessionUpdate");
 	if (user) {
+		console.log("debug: sessionUpdate if user does exist");
 		const limitedUserInfo: LimitedUserInfoType = getLimitedUserInfo(user);
 		await fetch("/api/auth/session", {
 			method: "POST",
@@ -19,6 +21,7 @@ export async function sessionUpdate(user: User | null) {
 			}),
 		});
 	} else {
+		console.log("debug: sessionUpdate if user is null");
 		await fetch("/api/auth/session", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -29,7 +32,7 @@ export async function sessionUpdate(user: User | null) {
 	}
 }
 
-export async function signinWithEmailPassword({
+export async function loginWithPassword({
 	email,
 	password,
 }: {
@@ -45,7 +48,7 @@ export async function signinWithEmailPassword({
 	}
 }
 
-export async function signupWithEmailPassword({
+export async function registerWithPassword({
 	email,
 	password,
 	firstName = "",
@@ -62,10 +65,19 @@ export async function signupWithEmailPassword({
 			email,
 			password
 		);
+		console.log("debug: (registerWithPassword) user is created!");
+
 		await updateProfile(user, {
 			displayName: firstName + " " + lastName,
 		});
-		return user;
+		console.log("debug: (registerWithPassword) update profile");
+
+		const logged = await loginWithPassword({ email, password });
+		console.log(
+			"debug: (registerWithPassword) logging in newly created user"
+		);
+
+		return logged.user;
 	} catch (error) {
 		console.error(error);
 		throw error;

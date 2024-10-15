@@ -10,16 +10,17 @@ import { AtSignIcon, VenetianMaskIcon, ShieldCheckIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useContextAuthMock } from "@/lib/hooks/useContextAuth.mock";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import FormErrorUI from "./form-error";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
+import { useContextAuth } from "@/lib/hooks/useContextAuth";
 
 export default function FormRegisterUI() {
-	const { createMockAuth, isPending, isSuccess, isError, data, error } =
-		useContextAuthMock();
+	const {
+		signupState: { mutate, isSuccess, isError, error, isPending },
+	} = useContextAuth();
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "First",
@@ -33,15 +34,18 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		const mockAuth = createMockAuth("register");
-		await mockAuth(data, false, false);
+		console.log("debug 2: onValid called");
+		mutate(data);
 	};
 
 	const router = useRouter();
 
 	useEffect(() => {
-		if (isSuccess) router.push("/auth/success?type=register");
-	}, [isSuccess, isError, data]);
+		if (isSuccess) {
+			console.log("debug 3: isSuccess, router push after");
+			router.push("/auth/success?type=register");
+		}
+	}, [isSuccess]);
 
 	return (
 		<FormProvider {...hookForm}>
