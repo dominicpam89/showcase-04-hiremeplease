@@ -46,9 +46,7 @@ export default function FormRegisterUI() {
 		formAction(formData);
 	};
 
-	console.log(formState.message);
 	const { isSubmitting } = hookForm.formState;
-	console.log("isSubmitting status: ", isSubmitting);
 
 	return (
 		<FormProvider {...hookForm}>

@@ -8,27 +8,23 @@ import {
 } from "firebase/auth";
 
 export async function sessionUpdate(user: User | null) {
-	console.log("debug: sessionUpdate");
+	console.log("debug server: session update run!");
 	if (user) {
-		console.log("debug: sessionUpdate if user does exist");
-		const limitedUserInfo: LimitedUserInfoType = getLimitedUserInfo(user);
-		await fetch("/api/auth/session", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				logged: true,
-				limitedUserInfo,
-			}),
-		});
+		const token = await user.getIdToken(true);
+		try {
+			await fetch("/api/auth/session", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ token }),
+			});
+			console.log("debug: (session) set cookie based on token");
+		} catch (error) {
+			throw error;
+		}
 	} else {
-		console.log("debug: sessionUpdate if user is null");
-		await fetch("/api/auth/session", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				logged: false,
-			}),
-		});
+		throw new Error("Couldn't update token");
 	}
 }
 
@@ -76,6 +72,7 @@ export async function registerWithPassword({
 		console.log(
 			"debug: (registerWithPassword) logging in newly created user"
 		);
+		await sessionUpdate(user);
 	} catch (error) {
 		console.error(error);
 		throw error;
