@@ -16,8 +16,6 @@ import { useFormState } from "react-dom";
 import { actionRegister } from "@/lib/actions/register.action";
 import FormErrorUI from "./form-error";
 import { TypeFormstate } from "@/lib/types/form.type";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 export default function FormRegisterUI() {
 	const [formState, formAction] = useFormState(actionRegister, {
@@ -38,12 +36,6 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 
-	const router = useRouter();
-	useEffect(() => {
-		if (formState.status == "success")
-			router.push("/auth/success?type=register");
-	}, [formState]);
-
 	const onValid: SubmitHandler<FormRegisterType> = (data) => {
 		const formData = new FormData();
 		formData.append("email", data.email);
@@ -53,8 +45,6 @@ export default function FormRegisterUI() {
 		formData.append("confirmationPassword", data.confirmationPassword);
 		formAction(formData);
 	};
-
-	const { isSubmitting, isValidating } = hookForm.formState;
 
 	return (
 		<FormProvider {...hookForm}>
@@ -93,14 +83,11 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isSubmitting || isValidating}>
+				<Button type="submit" disabled={false}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={isSubmitting || isValidating} />
-				<AuthSwitchButton
-					disabled={isSubmitting || isValidating}
-					link="/login"
-				>
+				<AuthProvidersUI disabled={false} />
+				<AuthSwitchButton disabled={false} link="/login">
 					Already have account?
 				</AuthSwitchButton>
 			</form>

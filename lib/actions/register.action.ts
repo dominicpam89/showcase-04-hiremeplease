@@ -3,7 +3,6 @@ import {
 	formRegisterSchema,
 	FormRegisterType,
 } from "@/lib/models/frontend/auth.model";
-import { registerWithPassword } from "@/lib/services/auth.service";
 import { TypeFormstate } from "@/lib/types/form.type";
 
 export async function actionRegister(
@@ -19,18 +18,9 @@ export async function actionRegister(
 			status: "error",
 		};
 	} else {
-		const { confirmationPassword, ...tobeRegistered } = formObject;
-		try {
-			await registerWithPassword(tobeRegistered);
-			return {
-				message: "Successfully submitted your registration form!",
-				status: "success",
-			};
-		} catch (error) {
-			return {
-				message: (error as Error).message,
-				status: "error",
-			};
-		}
+		return {
+			message: "Successfully submitted your registration form!",
+			status: "success",
+		};
 	}
 }

@@ -15,15 +15,12 @@ import { useFormState } from "react-dom";
 import { actionLogin } from "@/lib/actions/login.action";
 import { TypeFormstate } from "@/lib/types/form.type";
 import FormErrorUI from "./form-error";
-import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 
 export default function FormLoginUI() {
 	const [formState, formAction] = useFormState(actionLogin, {
 		message: "",
 		status: "idle",
 	} as TypeFormstate);
-	const formRef = useRef<HTMLFormElement | null>(null);
 
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
@@ -42,20 +39,9 @@ export default function FormLoginUI() {
 		formAction(formData);
 	};
 
-	const router = useRouter();
-	useEffect(() => {
-		if (formState.status == "success")
-			router.push("/auth/success?type=login");
-	}, [formState]);
-
-	const {
-		formState: { isSubmitting, isValidating },
-	} = hookForm;
-
 	return (
 		<FormProvider {...hookForm}>
 			<form
-				ref={formRef}
 				name="form-login"
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
@@ -73,14 +59,11 @@ export default function FormLoginUI() {
 					placeholder="password"
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isSubmitting || isValidating}>
+				<Button type="submit" disabled={false}>
 					Login with Email
 				</Button>
-				<AuthProvidersUI disabled={isSubmitting || isValidating} />
-				<AuthSwitchButton
-					disabled={isSubmitting || isValidating}
-					link="/register"
-				>
+				<AuthProvidersUI disabled={false} />
+				<AuthSwitchButton disabled={false} link="/register">
 					Don&apos;t have account?
 				</AuthSwitchButton>
 			</form>

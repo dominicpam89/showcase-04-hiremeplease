@@ -4,7 +4,6 @@ import {
 	FormLoginType,
 } from "@/lib/models/frontend/auth.model";
 import { TypeFormstate } from "@/lib/types/form.type";
-import { loginWithPassword } from "../services/auth.service";
 
 export async function actionLogin(
 	prevState: TypeFormstate,
@@ -19,18 +18,9 @@ export async function actionLogin(
 			status: "error",
 		};
 	} else {
-		try {
-			await loginWithPassword(formObject);
-			return {
-				message: "Successfully submitted",
-				status: "success",
-			};
-		} catch (error) {
-			console.error(error);
-			return {
-				message: (error as Error).message,
-				status: "error",
-			};
-		}
+		return {
+			message: "Successfully submitted",
+			status: "success",
+		};
 	}
 }
