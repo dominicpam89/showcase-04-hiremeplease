@@ -36,7 +36,7 @@ export default function FormRegisterUI() {
 		reValidateMode: "onChange",
 	});
 
-	const onValid: SubmitHandler<FormRegisterType> = (data) => {
+	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
 		const formData = new FormData();
 		formData.append("email", data.email);
 		formData.append("firstName", data.firstName || "");
@@ -45,6 +45,10 @@ export default function FormRegisterUI() {
 		formData.append("confirmationPassword", data.confirmationPassword);
 		formAction(formData);
 	};
+
+	console.log(formState.message);
+	const { isSubmitting } = hookForm.formState;
+	console.log("isSubmitting status: ", isSubmitting);
 
 	return (
 		<FormProvider {...hookForm}>
@@ -83,11 +87,11 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={false}>
+				<Button type="submit" disabled={isSubmitting}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={false} />
-				<AuthSwitchButton disabled={false} link="/login">
+				<AuthProvidersUI disabled={isSubmitting} />
+				<AuthSwitchButton disabled={isSubmitting} link="/login">
 					Already have account?
 				</AuthSwitchButton>
 			</form>

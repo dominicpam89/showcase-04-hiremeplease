@@ -39,6 +39,9 @@ export default function FormLoginUI() {
 		formAction(formData);
 	};
 
+	console.log(formState.message);
+	const { isSubmitting } = hookForm.formState;
+
 	return (
 		<FormProvider {...hookForm}>
 			<form
@@ -59,11 +62,11 @@ export default function FormLoginUI() {
 					placeholder="password"
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={false}>
+				<Button type="submit" disabled={isSubmitting}>
 					Login with Email
 				</Button>
-				<AuthProvidersUI disabled={false} />
-				<AuthSwitchButton disabled={false} link="/register">
+				<AuthProvidersUI disabled={isSubmitting} />
+				<AuthSwitchButton disabled={isSubmitting} link="/register">
 					Don&apos;t have account?
 				</AuthSwitchButton>
 			</form>
