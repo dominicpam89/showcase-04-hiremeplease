@@ -23,12 +23,10 @@ export default function ContextAuthProvider({ children }: Props) {
 	const signupState = useMutation({
 		mutationFn: registerWithPassword,
 	});
-
 	const [userState, setUserState] = useState<LimitedUserInfoType | null>(null);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
-			console.log("debug 4: onAuthStateChanged, user: ", user?.displayName);
 			if (user) {
 				setUserState(getLimitedUserInfo(user));
 			} else {

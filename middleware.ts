@@ -1,26 +1,21 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { auth } from "@/firebase.config";
 
 export function authMiddleware(request: NextRequest) {
-	console.log("debug server: auth middleware run");
-	const sessionData = request.cookies.get("session-token");
-	console.log("debug server: sessionData, \n", sessionData);
-
-	// If session token is missing, redirect to login
-	if (!sessionData) {
-		console.log("debug server: if there's no session Data, this is run");
+	const user = auth.currentUser;
+	console.log(auth.currentUser);
+	if (!user) {
+		console.log("debug middleware: no user");
 		return NextResponse.redirect(new URL("/login", request.url));
+	} else {
+		console.log("debug middleware: user does exist");
+		return NextResponse.next();
 	}
-
-	console.log("debug server: if sessionData exist");
-	// If session token exists, allow access to the page
-	return NextResponse.next();
 }
 
 export function middleware(request: NextRequest) {
-	/**
-	 * temporary turn off the routes protection by auth user
-	 * */
-	return authMiddleware(request);
+	// return authMiddleware(request);
+	return NextResponse.next();
 }
 
 export const config = {

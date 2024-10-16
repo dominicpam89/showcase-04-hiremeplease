@@ -14,12 +14,17 @@ import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import { useFormState } from "react-dom";
 import { actionRegister } from "@/lib/actions/register.action";
+import FormErrorUI from "./form-error";
+import { TypeFormstate } from "@/lib/types/form.type";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FormRegisterUI() {
 	const [formState, formAction] = useFormState(actionRegister, {
-		status: "idle",
 		message: "",
-	});
+		status: "idle",
+	} as TypeFormstate);
+
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "First",
@@ -32,17 +37,24 @@ export default function FormRegisterUI() {
 		mode: "onBlur",
 		reValidateMode: "onChange",
 	});
-	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
+
+	const router = useRouter();
+	useEffect(() => {
+		if (formState.status == "success")
+			router.push("/auth/success?type=register");
+	}, [formState]);
+
+	const onValid: SubmitHandler<FormRegisterType> = (data) => {
 		const formData = new FormData();
 		formData.append("email", data.email);
-		formData.append("password", data.password);
-		formData.append("confirmationPassword", data.confirmationPassword);
 		formData.append("firstName", data.firstName || "");
 		formData.append("lastName", data.lastName || "");
+		formData.append("password", data.password);
+		formData.append("confirmationPassword", data.confirmationPassword);
 		formAction(formData);
 	};
 
-	console.log(formState);
+	const { isSubmitting, isValidating } = hookForm.formState;
 
 	return (
 		<FormProvider {...hookForm}>
@@ -51,7 +63,9 @@ export default function FormRegisterUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
-				{/* {isError && <FormErrorUI message={error.message} />} */}
+				{formState.status === "error" && (
+					<FormErrorUI message={formState.message} />
+				)}
 				<InputGroup twClasses="max-sm:flex-col">
 					<InputField<FormRegisterType>
 						name="firstName"
@@ -79,11 +93,14 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={false}>
+				<Button type="submit" disabled={isSubmitting || isValidating}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={false} />
-				<AuthSwitchButton disabled={false} link="/login">
+				<AuthProvidersUI disabled={isSubmitting || isValidating} />
+				<AuthSwitchButton
+					disabled={isSubmitting || isValidating}
+					link="/login"
+				>
 					Already have account?
 				</AuthSwitchButton>
 			</form>

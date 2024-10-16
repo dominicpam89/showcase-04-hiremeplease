@@ -72,12 +72,10 @@ export async function registerWithPassword({
 		});
 		console.log("debug: (registerWithPassword) update profile");
 
-		const logged = await loginWithPassword({ email, password });
+		await loginWithPassword({ email, password });
 		console.log(
 			"debug: (registerWithPassword) logging in newly created user"
 		);
-
-		return logged.user;
 	} catch (error) {
 		console.error(error);
 		throw error;
