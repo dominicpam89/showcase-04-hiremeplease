@@ -3,7 +3,6 @@ import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export async function POST(request: Request) {
 	console.log("debug server: running api/auth/session");
-
 	try {
 		const { token } = await request.json();
 

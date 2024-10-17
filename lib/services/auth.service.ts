@@ -61,18 +61,10 @@ export async function registerWithPassword({
 			email,
 			password
 		);
-		console.log("debug: (registerWithPassword) user is created!");
-
 		await updateProfile(user, {
 			displayName: firstName + " " + lastName,
 		});
-		console.log("debug: (registerWithPassword) update profile");
-
-		await loginWithPassword({ email, password });
-		console.log(
-			"debug: (registerWithPassword) logging in newly created user"
-		);
-		await sessionUpdate(user);
+		return user;
 	} catch (error) {
 		console.error(error);
 		throw error;
