@@ -1,28 +1,46 @@
-import { NextRequest } from "next/server";
-import { cookies } from "next/headers";
-import { adminAuth } from "@/firebase-admin.config";
+import { getAuth } from "firebase-admin/auth";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
 	console.log("debug server: running api/auth/session here");
 	const { token } = await request.json();
-	console.log("debug server: (request.json) - ", token);
 	if (token) {
 		try {
 			console.log("debug server: if there's logged user");
-			const verifiedToken = await adminAuth.verifyIdToken(token);
+			const verifiedToken = await getAuth().verifyIdToken(token);
 			const tokenJSON = JSON.stringify(verifiedToken);
-			cookies().set("session-token", tokenJSON, {
-				httpOnly: true,
-				sameSite: "strict",
-				path: "/",
-				maxAge: verifiedToken.exp, // Cookie expiration is set to match the token expiration
+			console.log(tokenJSON);
+			return new Response("Successfully set cookie", {
+				status: 200,
+				headers: {
+					"Set-Cookie": `session-token=${tokenJSON}; Path=/; HttpOnly; Secure=${
+						process.env.NODE_ENV === "production"
+					}; SameSite=Strict; Max-Age=0`, // Delete the cookie
+				},
 			});
 		} catch (error) {
-			cookies().delete("session-token");
-			throw error;
+			console.error("Error verifying token:", error);
+
+			// Return a response with a cleared cookie on error
+			return new Response("Failed to set cookie", {
+				status: 500,
+				headers: {
+					"Set-Cookie": `session-token=; Path=/; HttpOnly; Secure=${
+						process.env.NODE_ENV === "production"
+					}; SameSite=Strict; Max-Age=0`, // Delete the cookie
+				},
+			});
 		}
 	} else {
 		console.log("debug server: if there's no logged user");
-		cookies().delete("session-token");
+
+		// Return a response with a cleared cookie when no token is present
+		return new Response("Successfully cleared cookies", {
+			status: 200,
+			headers: {
+				"Set-Cookie": `session-token=; Path=/; HttpOnly; Secure=${
+					process.env.NODE_ENV === "production"
+				}; SameSite=Strict; Max-Age=0`, // Delete the cookie
+			},
+		});
 	}
 }

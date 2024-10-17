@@ -12,7 +12,7 @@ export async function sessionUpdate(user: User | null) {
 	if (user) {
 		const token = await user.getIdToken(true);
 		try {
-			await fetch("/api/auth/session", {
+			await fetch("http://localhost:3000/api/auth/session", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
