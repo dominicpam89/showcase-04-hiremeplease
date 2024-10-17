@@ -1,5 +1,5 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { UserCredential } from "firebase/auth";
+import { User, UserCredential } from "firebase/auth";
 import { LimitedUserInfoType } from "../services/auth.service";
 
 export type ContextAuthType = {
@@ -13,7 +13,7 @@ export type ContextAuthType = {
 		unknown
 	>;
 	signupState: UseMutationResult<
-		void,
+		User,
 		Error,
 		{
 			email: string;

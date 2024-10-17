@@ -11,17 +11,12 @@ import { AtSignIcon, VenetianMaskIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
-import { useFormState } from "react-dom";
-import { actionLogin } from "@/lib/actions/login.action";
-import { TypeFormstate } from "@/lib/types/form.type";
 import FormErrorUI from "./form-error";
+import { useContextAuth } from "@/lib/hooks/useContextAuth";
 
 export default function FormLoginUI() {
-	const [formState, formAction] = useFormState(actionLogin, {
-		message: "",
-		status: "idle",
-	} as TypeFormstate);
-
+	const { signinState } = useContextAuth();
+	const { mutate, isError, error, isPending } = signinState;
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
 			email: "mockemail@email.com",
@@ -33,14 +28,8 @@ export default function FormLoginUI() {
 	});
 
 	const onValid: SubmitHandler<FormLoginType> = (data) => {
-		const formData = new FormData();
-		formData.append("email", data.email);
-		formData.append("password", data.password);
-		formAction(formData);
+		mutate(data);
 	};
-
-	console.log(formState.message);
-	const { isSubmitting } = hookForm.formState;
 
 	return (
 		<FormProvider {...hookForm}>
@@ -49,9 +38,7 @@ export default function FormLoginUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
-				{formState.status === "error" && (
-					<FormErrorUI message={formState.message} />
-				)}
+				{isError && <FormErrorUI message={error.message} />}
 				<InputField<FormLoginType>
 					name="email"
 					placeholder="johndoe@email.com"
@@ -62,11 +49,11 @@ export default function FormLoginUI() {
 					placeholder="password"
 					icon={<VenetianMaskIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isSubmitting}>
+				<Button type="submit" disabled={isPending}>
 					Login with Email
 				</Button>
-				<AuthProvidersUI disabled={isSubmitting} />
-				<AuthSwitchButton disabled={isSubmitting} link="/register">
+				<AuthProvidersUI disabled={isPending} />
+				<AuthSwitchButton disabled={isPending} link="/register">
 					Don&apos;t have account?
 				</AuthSwitchButton>
 			</form>

@@ -12,17 +12,13 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
-import { useFormState } from "react-dom";
-import { actionRegister } from "@/lib/actions/register.action";
 import FormErrorUI from "./form-error";
-import { TypeFormstate } from "@/lib/types/form.type";
+import { useContextAuth } from "@/lib/hooks/useContextAuth";
 
 export default function FormRegisterUI() {
-	const [formState, formAction] = useFormState(actionRegister, {
-		message: "",
-		status: "idle",
-	} as TypeFormstate);
-
+	const {
+		signupState: { mutate, isError, error, isPending },
+	} = useContextAuth();
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "First",
@@ -37,16 +33,8 @@ export default function FormRegisterUI() {
 	});
 
 	const onValid: SubmitHandler<FormRegisterType> = async (data) => {
-		const formData = new FormData();
-		formData.append("email", data.email);
-		formData.append("firstName", data.firstName || "");
-		formData.append("lastName", data.lastName || "");
-		formData.append("password", data.password);
-		formData.append("confirmationPassword", data.confirmationPassword);
-		formAction(formData);
+		mutate(data);
 	};
-
-	const { isSubmitting } = hookForm.formState;
 
 	return (
 		<FormProvider {...hookForm}>
@@ -55,9 +43,7 @@ export default function FormRegisterUI() {
 				className="w-full flex flex-col gap-4"
 				onSubmit={hookForm.handleSubmit(onValid)}
 			>
-				{formState.status === "error" && (
-					<FormErrorUI message={formState.message} />
-				)}
+				{isError && <FormErrorUI message={error.message} />}
 				<InputGroup twClasses="max-sm:flex-col">
 					<InputField<FormRegisterType>
 						name="firstName"
@@ -85,11 +71,11 @@ export default function FormRegisterUI() {
 					placeholder="Confirm your password"
 					icon={<ShieldCheckIcon className="w-full h-full" />}
 				/>
-				<Button type="submit" disabled={isSubmitting}>
+				<Button type="submit" disabled={isPending}>
 					Register with Email
 				</Button>
-				<AuthProvidersUI disabled={isSubmitting} />
-				<AuthSwitchButton disabled={isSubmitting} link="/login">
+				<AuthProvidersUI disabled={isPending} />
+				<AuthSwitchButton disabled={isPending} link="/login">
 					Already have account?
 				</AuthSwitchButton>
 			</form>
