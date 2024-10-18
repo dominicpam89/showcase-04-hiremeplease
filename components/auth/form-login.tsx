@@ -13,6 +13,8 @@ import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import FormErrorUI from "./form-error";
 import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function FormLoginUI() {
 	const { signinState } = useContextAuth();
@@ -30,6 +32,11 @@ export default function FormLoginUI() {
 	const onValid: SubmitHandler<FormLoginType> = (data) => {
 		mutate(data);
 	};
+
+	const router = useRouter();
+	useEffect(() => {
+		if (signinState.data && signinState.isSuccess) router.push("/");
+	}, [signinState]);
 
 	return (
 		<FormProvider {...hookForm}>

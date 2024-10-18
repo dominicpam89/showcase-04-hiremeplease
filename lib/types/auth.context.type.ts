@@ -4,7 +4,7 @@ import { LimitedUserInfoType } from "../services/auth.service";
 
 export type ContextAuthType = {
 	signinState: UseMutationResult<
-		void,
+		User,
 		Error,
 		{
 			email: string;

@@ -37,6 +37,7 @@ export async function loginWithPassword({
 	try {
 		const { user } = await signInWithEmailAndPassword(auth, email, password);
 		await sessionUpdate(user);
+		return user;
 	} catch (error) {
 		console.error(error);
 		throw error;
