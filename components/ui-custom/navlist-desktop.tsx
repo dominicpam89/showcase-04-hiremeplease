@@ -4,7 +4,7 @@ import NavlistItemUI from "./navlist-item";
 import { LogoUIWithLink } from "./logo";
 
 export default function NavlistDesktop() {
-	const navlist = getNavList("md");
+	const navlist = getNavList("sm");
 	return (
 		<nav
 			aria-label="navlist-desktop"
