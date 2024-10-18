@@ -10,9 +10,6 @@ interface Props {
 export default function NavlistItemUI({ item, onSelect = () => {} }: Props) {
 	const pathname = usePathname();
 
-	console.log("pathname: ", pathname);
-	console.log("item.link : ", item.link);
-
 	let isActive = item.link == pathname;
 
 	if (item.link == "/u" && pathname == "/u") {
