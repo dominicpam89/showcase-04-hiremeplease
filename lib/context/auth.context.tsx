@@ -11,6 +11,7 @@ import {
 import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { auth } from "@/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 export const ContextAuth = createContext<ContextAuthType | null>(null);
 
@@ -18,14 +19,25 @@ interface Props {
 	children: React.ReactNode;
 }
 export default function ContextAuthProvider({ children }: Props) {
+	const router = useRouter();
+
 	const signinState = useMutation({
 		mutationFn: loginWithPassword,
+		onSuccess: () => {
+			router.push("/auth/success?type=login");
+		},
 	});
 	const signupState = useMutation({
 		mutationFn: registerWithPassword,
+		onSuccess: () => {
+			router.push("/auth/success?type=register");
+		},
 	});
 	const signoutState = useMutation({
 		mutationFn: logout,
+		onSuccess: () => {
+			router.push("/login");
+		},
 	});
 
 	const [userState, setUserState] = useState<LimitedUserInfoType | null>(null);

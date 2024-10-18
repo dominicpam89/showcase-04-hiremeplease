@@ -2,22 +2,9 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useContextAuth } from "@/lib/hooks/useContextAuth";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function AuthResultRegister() {
-	const router = useRouter();
-	const [countdown, setCountDown] = useState(3);
-	useEffect(() => {
-		if (countdown == 0) router.push("/");
-		else {
-			const timer = setTimeout(() => setCountDown(countdown - 1), 1000);
-			return () => clearTimeout(timer);
-		}
-	}, [countdown]);
-
 	const { userState } = useContextAuth();
-
 	return (
 		<Alert
 			aria-label="auth-login-result"
@@ -29,7 +16,7 @@ export default function AuthResultRegister() {
 			<AlertDescription>
 				Welcome {userState!.displayName}
 				<Link
-					href="/"
+					href={process.env.NEXT_PUBLIC_HOMEPAGE as string}
 					className="underline underline-offset-4 transition-all ease-in-out font-normal hover:font-bold"
 				>
 					Click here

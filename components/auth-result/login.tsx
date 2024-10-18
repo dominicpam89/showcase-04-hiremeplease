@@ -1,19 +1,10 @@
 "use client";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useCountdownRedirect } from "@/lib/hooks/useCountdownRedirect";
 
 export default function AuthResultLogin() {
-	const router = useRouter();
-	const [countdown, setCountDown] = useState(300);
-	useEffect(() => {
-		if (countdown == 0) router.push("/");
-		else {
-			const timer = setTimeout(() => setCountDown(countdown - 1), 1000);
-			return () => clearTimeout(timer);
-		}
-	}, [countdown]);
+	const { countdown } = useCountdownRedirect({ link: "/u", time: 3 });
 	return (
 		<Alert
 			aria-label="auth-login-result"
@@ -26,7 +17,7 @@ export default function AuthResultLogin() {
 				You are going to be redirected in {countdown}. Or if you're in
 				hurry, you can click here{" "}
 				<Link
-					href="/"
+					href={process.env.NEXT_PUBLIC_HOMEPAGE as string}
 					className="underline underline-offset-4 transition-all ease-in-out font-normal hover:font-bold"
 				>
 					redirect to homepage
