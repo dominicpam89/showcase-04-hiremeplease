@@ -8,6 +8,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/themes/toggle";
+import NavbarDesktopLogoutUI from "./navbar-desktop-logout";
 
 export default function NavbarDesktopUI() {
 	return (
@@ -27,6 +28,8 @@ export default function NavbarDesktopUI() {
 					<DropdownMenuItem>Billing</DropdownMenuItem>
 					<DropdownMenuItem>Team</DropdownMenuItem>
 					<DropdownMenuItem>Subscription</DropdownMenuItem>
+					<DropdownMenuSeparator />
+					<NavbarDesktopLogoutUI />
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</div>

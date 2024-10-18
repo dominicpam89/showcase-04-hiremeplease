@@ -14,6 +14,7 @@ import { LogoUI } from "./logo";
 import { Separator } from "@/components/ui/separator";
 import { useCommonToggle } from "@/lib/hooks/useCommonToggle";
 import ThemeToggle from "@/components/themes/toggle";
+import NavlistMobileLogout from "./navlist-mobile-logout";
 
 export default function NavlistMobileUI() {
 	const { open, onOpenChange, toggleClose } = useCommonToggle();
@@ -53,6 +54,7 @@ export default function NavlistMobileUI() {
 							onSelect={toggleClose}
 						/>
 					))}
+					<NavlistMobileLogout />
 				</ul>
 			</SheetContent>
 		</Sheet>
