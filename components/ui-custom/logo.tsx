@@ -12,7 +12,7 @@ export function LogoUI({ size = "md" }: Props) {
 		size == "sm" ? "size-5" : size == "md" ? "size-6" : "size-7";
 	return (
 		<div aria-label="logo-image-container" className={sizeClass}>
-			<img src="/logo-sm.png" alt="logo" className="w-full h-full" />
+			<img src="/logo/logo-sm.png" alt="logo" className="w-full h-full" />
 		</div>
 	);
 }
@@ -29,7 +29,7 @@ export function LogoUIWithLink({ size = "md" }: Props) {
 			)}
 		>
 			<Link href={HOMEPAGE_URL}>
-				<img src="/logo-sm.png" alt="logo" className="w-full h-full" />
+				<img src="/logo/logo-sm.png" alt="logo" className="w-full h-full" />
 			</Link>
 		</div>
 	);
