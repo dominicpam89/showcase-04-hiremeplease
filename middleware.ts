@@ -1,13 +1,14 @@
-import type { DecodedIdToken } from "firebase-admin/auth";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function authMiddleware(request: NextRequest) {
 	const token = request.cookies.get("session-token");
+	console.log(token);
+
 	if (!token) {
-		console.log("debug middleware: no user");
+		console.log("debug middleware: no token in cookies");
 		return NextResponse.redirect(new URL("/login", request.url));
 	} else {
-		console.log("debug middleware: user does exist");
+		console.log("debug middleware: token does exist in cookies");
 		return NextResponse.next();
 	}
 }

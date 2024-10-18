@@ -11,13 +11,14 @@ export async function sessionUpdate(user: User | null) {
 	if (user) {
 		const token = await user.getIdToken(true);
 		try {
-			await fetch("http://localhost:3000/api/auth/session", {
+			const res = await fetch("http://localhost:3000/api/auth/session", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ token }),
 			});
+			return (await res.json()) as { success: boolean; mesasge: string };
 		} catch (error) {
 			console.log("couldn't update cookies", error);
 			throw error;
@@ -36,8 +37,7 @@ export async function loginWithPassword({
 }) {
 	try {
 		const { user } = await signInWithEmailAndPassword(auth, email, password);
-		await sessionUpdate(user);
-		return user;
+		return await sessionUpdate(user);
 	} catch (error) {
 		console.error(error);
 		throw error;
@@ -64,7 +64,7 @@ export async function registerWithPassword({
 		await updateProfile(user, {
 			displayName: firstName + " " + lastName,
 		});
-		return user;
+		return await sessionUpdate(user);
 	} catch (error) {
 		console.error(error);
 		throw error;

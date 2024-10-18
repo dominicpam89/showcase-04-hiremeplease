@@ -14,10 +14,13 @@ import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import FormErrorUI from "./form-error";
 import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function FormRegisterUI() {
 	const {
-		signupState: { mutate, isError, error, isPending },
+		signupState: { mutate, isError, error, isPending, isSuccess, data },
+		userState,
 	} = useContextAuth();
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
@@ -36,6 +39,12 @@ export default function FormRegisterUI() {
 		mutate(data);
 	};
 
+	const router = useRouter();
+	useEffect(() => {
+		if (data?.success || isSuccess) router.push("/");
+	}, [isSuccess]);
+
+	if (userState) return redirect("/");
 	return (
 		<FormProvider {...hookForm}>
 			<form

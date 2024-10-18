@@ -34,9 +34,13 @@ export async function POST(request: Request) {
 			sameSite: "strict", // Prevent CSRF
 		};
 
+		const verifiedTokenString = JSON.stringify(verifiedToken);
 		// Return success response with Set-Cookie header
-		cookies().set("session-token", token, options);
-		return NextResponse.redirect(new URL("/", request.url));
+		cookies().set("session-token", verifiedTokenString, options);
+		return NextResponse.json({
+			success: true,
+			mesasge: "successfully setup cookies",
+		});
 	} catch (error) {
 		// Remove the existing session-token cookie in case of an error
 		cookies().delete("session-token");
