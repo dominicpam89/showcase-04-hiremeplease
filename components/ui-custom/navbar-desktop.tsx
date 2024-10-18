@@ -1,18 +1,34 @@
-import { getNavList } from "@/constant/nav.constant";
-import NavbarItemUI from "./navbar-item";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/themes/toggle";
 
 export default function NavbarDesktopUI() {
-	const navlist = getNavList("sm");
 	return (
-		<ul
-			aria-label="navlist-desktop"
-			className="flex gap-4 text-sm max-sm:hidden"
-		>
-			{navlist.map((item) => (
-				<NavbarItemUI item={item} key={item.link} />
-			))}
+		<div aria-label="navbar-desktop" className="flex gap-2">
 			<ThemeToggle />
-		</ul>
+			<DropdownMenu>
+				<DropdownMenuTrigger>
+					<Avatar>
+						<AvatarImage src="https://github.com/shadcn.png" />
+						<AvatarFallback>CN</AvatarFallback>
+					</Avatar>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<DropdownMenuLabel>My Account</DropdownMenuLabel>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem>Profile</DropdownMenuItem>
+					<DropdownMenuItem>Billing</DropdownMenuItem>
+					<DropdownMenuItem>Team</DropdownMenuItem>
+					<DropdownMenuItem>Subscription</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+		</div>
 	);
 }

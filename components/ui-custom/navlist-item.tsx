@@ -7,12 +7,13 @@ interface Props {
 	item: TypeNavItem;
 	onSelect?: () => void;
 }
-export default function NavbarItemUI({ item, onSelect = () => {} }: Props) {
+export default function NavlistItemUI({ item, onSelect = () => {} }: Props) {
 	const pathname = usePathname();
 	const isActive =
 		item.link.includes(pathname) || pathname.startsWith(item.link);
 	return (
 		<li
+			aria-label="navlist-item"
 			key={item.link}
 			className={cn(
 				"flex items-center gap-1 transform transition-all duration-200 ease-out",
