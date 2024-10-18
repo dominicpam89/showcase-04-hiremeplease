@@ -41,10 +41,9 @@ export default function FormRegisterUI() {
 
 	const router = useRouter();
 	useEffect(() => {
-		if (data?.success || isSuccess) router.push("/");
+		if (userState) router.push("/");
 	}, [isSuccess]);
 
-	if (userState) return redirect("/");
 	return (
 		<FormProvider {...hookForm}>
 			<form

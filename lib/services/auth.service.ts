@@ -7,11 +7,13 @@ import {
 	signOut,
 } from "firebase/auth";
 
+const DOMAIN_URL = process.env.NEXT_PUBLIC_DOMAIN_DEV;
+
 export async function sessionUpdate(user: User | null) {
 	if (user) {
 		const token = await user.getIdToken(true);
 		try {
-			const res = await fetch("http://localhost:3000/api/auth/session", {
+			const res = await fetch(`${DOMAIN_URL}/api/auth/session`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -74,7 +76,7 @@ export async function registerWithPassword({
 export async function logout() {
 	try {
 		await signOut(auth);
-		await fetch("http://localhost:3000/api/auth/logout");
+		await fetch(`${DOMAIN_URL}/api/auth/logout`);
 	} catch (error) {
 		console.error(error);
 		throw error;

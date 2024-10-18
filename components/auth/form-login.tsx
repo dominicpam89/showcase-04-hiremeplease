@@ -38,7 +38,6 @@ export default function FormLoginUI() {
 		if (userState) router.push("/");
 	}, [userState]);
 
-	if (userState) return redirect("/");
 	return (
 		<FormProvider {...hookForm}>
 			<form
