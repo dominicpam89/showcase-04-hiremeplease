@@ -35,7 +35,7 @@ export default function FormLoginUI() {
 
 	const router = useRouter();
 	useEffect(() => {
-		if (userState) router.push("/");
+		if (userState) router.push(process.env.NEXT_PUBLIC_HOMEPAGE as string);
 	}, [userState]);
 
 	return (
