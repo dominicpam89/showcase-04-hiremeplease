@@ -20,10 +20,10 @@ export default function NavlistDesktop() {
 			>
 				<div aria-label="header-title" className="flex items-center gap-3">
 					<LogoUIWithLink size="lg" />
-					<h2 className="font-black text-primary text-xl">Teatac</h2>
+					<h2 className="font-black text-xl">Teatac</h2>
 				</div>
 				<div aria-label="header-content">
-					<p className="text-xs text-primary/50 text-justify text-pretty break-all">
+					<p className="text-xs opacity-50 text-justify text-pretty break-all">
 						Welcome to TeaTac (Teach and Tackle), ask the real questions
 						to teachers for knowledge bombs
 					</p>

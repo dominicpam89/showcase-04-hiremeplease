@@ -13,11 +13,9 @@ import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import FormErrorUI from "./form-error";
 import { useContextAuth } from "@/lib/hooks/useContextAuth";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function FormLoginUI() {
-	const { signinState, userState } = useContextAuth();
+	const { signinState } = useContextAuth();
 	const { mutate, isError, error, isPending } = signinState;
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {
@@ -32,11 +30,6 @@ export default function FormLoginUI() {
 	const onValid: SubmitHandler<FormLoginType> = (data) => {
 		mutate(data);
 	};
-
-	const router = useRouter();
-	useEffect(() => {
-		if (userState) router.push(process.env.NEXT_PUBLIC_HOMEPAGE as string);
-	}, [userState]);
 
 	return (
 		<FormProvider {...hookForm}>
