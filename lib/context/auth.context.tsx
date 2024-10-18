@@ -6,6 +6,7 @@ import {
 	registerWithPassword,
 	getLimitedUserInfo,
 	LimitedUserInfoType,
+	logout,
 } from "@/lib/services/auth.service";
 import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { auth } from "@/firebase.config";
@@ -23,6 +24,10 @@ export default function ContextAuthProvider({ children }: Props) {
 	const signupState = useMutation({
 		mutationFn: registerWithPassword,
 	});
+	const signoutState = useMutation({
+		mutationFn: logout,
+	});
+
 	const [userState, setUserState] = useState<LimitedUserInfoType | null>(null);
 
 	useEffect(() => {
@@ -37,7 +42,9 @@ export default function ContextAuthProvider({ children }: Props) {
 	}, [auth]);
 
 	return (
-		<ContextAuth.Provider value={{ signinState, signupState, userState }}>
+		<ContextAuth.Provider
+			value={{ signinState, signupState, signoutState, userState }}
+		>
 			{children}
 		</ContextAuth.Provider>
 	);

@@ -2,13 +2,12 @@ import { auth } from "@/firebase.config";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-	signOut,
 	User,
 	updateProfile,
+	signOut,
 } from "firebase/auth";
 
 export async function sessionUpdate(user: User | null) {
-	console.log("debug server: session update run!");
 	if (user) {
 		const token = await user.getIdToken(true);
 		try {
@@ -19,8 +18,8 @@ export async function sessionUpdate(user: User | null) {
 				},
 				body: JSON.stringify({ token }),
 			});
-			console.log("debug: (session) set cookie based on token");
 		} catch (error) {
+			console.log("couldn't update cookies", error);
 			throw error;
 		}
 	} else {
@@ -36,8 +35,8 @@ export async function loginWithPassword({
 	password: string;
 }) {
 	try {
-		const user = await signInWithEmailAndPassword(auth, email, password);
-		return user;
+		const { user } = await signInWithEmailAndPassword(auth, email, password);
+		await sessionUpdate(user);
 	} catch (error) {
 		console.error(error);
 		throw error;
@@ -74,15 +73,9 @@ export async function registerWithPassword({
 export async function logout() {
 	try {
 		await signOut(auth);
-
-		// Inform the server to clear the session or cookie
-		await fetch("/api/auth", {
-			method: "POST",
-		});
-
-		return { message: "logged out successfully" };
+		await fetch("http://localhost:3000/api/auth/logout");
 	} catch (error) {
-		console.error("Error logging out:", error);
+		console.error(error);
 		throw error;
 	}
 }

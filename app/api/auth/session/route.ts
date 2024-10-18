@@ -1,21 +1,18 @@
+import { initAdmin } from "@/firebase-admin.config";
 import { getAuth } from "firebase-admin/auth";
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
 	console.log("debug server: running api/auth/session");
+	initAdmin();
 	try {
 		const { token } = await request.json();
-
 		if (!token) {
-			return new Response("Token not provided, cookie cleared", {
-				status: 400,
-				headers: {
-					"Set-Cookie": `session-token=; Max-Age=0; Path=/; HttpOnly; Secure=${false}; SameSite=Strict`,
-				},
-			});
+			throw new Error("Token not provided, cookie cleared");
 		}
 
-		console.log("debug server: token is exist");
 		// Verify the token
 		const verifiedToken = await getAuth().verifyIdToken(token);
 
@@ -25,13 +22,8 @@ export async function POST(request: Request) {
 		// Ensure expiration is positive
 		if (expiresIn <= 0) {
 			console.log("debug server: token has already expired");
-			return new Response("Token has already expired", { status: 401 });
+			return NextResponse.json("Token has already expired", { status: 401 });
 		}
-
-		// Create a session cookie
-		const sessionCookie = await getAuth().createSessionCookie(token, {
-			expiresIn: expiresIn, // transform back to seconds
-		});
 
 		// Define cookie options
 		const options: Partial<ResponseCookie> = {
@@ -42,26 +34,12 @@ export async function POST(request: Request) {
 			sameSite: "strict", // Prevent CSRF
 		};
 
-		console.log("debug server: sessionCookie-->", sessionCookie);
-		console.log("debug server: response cookies options-->", options);
 		// Return success response with Set-Cookie header
-		const response = new Response("Successfully set cookie", {
-			status: 200,
-			headers: {
-				"Set-Cookie": `token=${sessionCookie}; Max-Age=${options.maxAge}; Path=${options.path}; HttpOnly; Secure=${options.secure}; SameSite=${options.sameSite}`,
-			},
-		});
-		console.log("debug server: response with cookies in header is set");
-		return response;
+		cookies().set("session-token", token, options);
+		return NextResponse.redirect(new URL("/", request.url));
 	} catch (error) {
-		console.error("Error in setting session cookie:", error);
-
 		// Remove the existing session-token cookie in case of an error
-		return new Response("Failed to set cookie, cookie cleared", {
-			status: 500,
-			headers: {
-				"Set-Cookie": `session-token=; Max-Age=0; Path=/; HttpOnly; Secure=${false}; SameSite=Strict`,
-			},
-		});
+		cookies().delete("session-token");
+		throw error;
 	}
 }

@@ -1,10 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { auth } from "@/firebase.config";
 
 export function authMiddleware(request: NextRequest) {
-	const user = auth.currentUser;
-	console.log(auth.currentUser);
-	if (!user) {
+	const token = request.cookies.get("session-token");
+	console.log("token: ", token);
+
+	if (!token) {
 		console.log("debug middleware: no user");
 		return NextResponse.redirect(new URL("/login", request.url));
 	} else {
@@ -14,8 +14,8 @@ export function authMiddleware(request: NextRequest) {
 }
 
 export function middleware(request: NextRequest) {
-	// return authMiddleware(request);
-	return NextResponse.next();
+	return authMiddleware(request);
+	// return NextResponse.next();
 }
 
 export const config = {
@@ -29,6 +29,6 @@ export const config = {
         - /_next/static/ (Next.js internal files)
         - /_next/image (Next.js image optimization)
       */
-		"/((?!login|register|public|favicon.ico|_next/static|_next/image).*)",
+		"/((?!login|register|public|favicon.ico|api|_next/static|_next/image).*)",
 	],
 };
