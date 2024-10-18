@@ -1,4 +1,5 @@
-import React, { ImgHTMLAttributes, useState } from "react";
+"use client";
+import { ImgHTMLAttributes, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {}

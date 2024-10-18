@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function authMiddleware(request: NextRequest) {
 	const token = request.cookies.get("session-token");
-	console.log(token);
 
 	if (!token) {
 		console.log("debug middleware: no token in cookies");
