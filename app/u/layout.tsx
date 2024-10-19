@@ -8,9 +8,7 @@ import NavlistDesktop from "@/components/ui-custom/navlist-desktop";
 export default function Layout({ children }: PropsWithChildren) {
 	return (
 		<>
-			<header className="relative">
-				<NavbarMobileUI />
-			</header>
+			<NavbarMobileUI />
 			<div
 				aria-label="layout-main-client"
 				className="relative w-full min-h-screen flex"
