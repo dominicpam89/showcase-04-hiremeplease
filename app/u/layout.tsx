@@ -7,11 +7,13 @@ import NavlistDesktop from "@/components/ui-custom/navlist-desktop";
 
 export default function Layout({ children }: PropsWithChildren) {
 	return (
-		<>
-			<NavbarMobileUI />
+		<div className="relative">
+			<header className="relative">
+				<NavbarMobileUI />
+			</header>
 			<div
 				aria-label="layout-main-client"
-				className="relative w-full min-h-screen flex"
+				className="w-full min-h-screen flex"
 			>
 				<NavlistDesktop />
 				<div aria-label="main-content" className="w-full">
@@ -29,6 +31,6 @@ export default function Layout({ children }: PropsWithChildren) {
 				</div>
 			</div>
 			<footer></footer>
-		</>
+		</div>
 	);
 }

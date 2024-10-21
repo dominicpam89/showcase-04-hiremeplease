@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function LoaderUI() {
 	return (
 		<motion.div
-			aria-label="transition"
+			aria-label="page-transition-component"
 			className="absolute inset-0 min-h-screen w-full bg-primary"
 			initial={{ opacity: 0.9, zIndex: 50 }}
 			animate={{ opacity: 0, zIndex: -50 }}
