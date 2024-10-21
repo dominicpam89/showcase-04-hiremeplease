@@ -45,7 +45,7 @@ export default function NavlistMobileUI() {
 				<Separator className="mt-6" />
 				<ul
 					aria-label="navlist-mobile"
-					className="mt-6 flex flex-col gap-6 text-sm"
+					className="mt-6 flex flex-col gap-5 text-xs"
 				>
 					{navlist.map((item) => (
 						<NavlistItemUI

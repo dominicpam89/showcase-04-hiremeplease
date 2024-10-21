@@ -6,8 +6,13 @@ import { usePathname } from "next/navigation";
 interface Props {
 	item: TypeNavItem;
 	onSelect?: () => void;
+	withText?: boolean;
 }
-export default function NavlistItemUI({ item, onSelect = () => {} }: Props) {
+export default function NavlistItemUI({
+	item,
+	withText = true,
+	onSelect = () => {},
+}: Props) {
 	const pathname = usePathname();
 
 	let isActive = item.link == pathname;
@@ -21,7 +26,7 @@ export default function NavlistItemUI({ item, onSelect = () => {} }: Props) {
 			aria-label="navlist-item"
 			key={item.link}
 			className={cn(
-				"flex items-center gap-2 transform transition-all duration-200 ease-out",
+				"transform transition-all duration-200 ease-out",
 				{ "font-extrabold text-green-800 dark:text-green-200": isActive },
 				{
 					"hover:opacity-60 hover:scale-x-105": !isActive,
@@ -29,9 +34,13 @@ export default function NavlistItemUI({ item, onSelect = () => {} }: Props) {
 				"text-sm"
 			)}
 		>
-			{item.icon}
-			<Link href={item.link} onClick={onSelect}>
-				{item.text}
+			<Link
+				href={item.link}
+				onClick={onSelect}
+				className={cn("flex gap-2 items-center")}
+			>
+				{item.icon}
+				{withText ? item.text : ""}
 			</Link>
 		</li>
 	);
