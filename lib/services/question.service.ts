@@ -15,33 +15,21 @@ const DOC_REF = collection(db, "teatac-questions");
 // 	}
 // }
 
-export async function getQuestions(): Promise<TypeQuestion<"fetch">[]> {
+export async function getQuestions() {
 	try {
 		// get all questions
 		const querySnapshot = await getDocs(DOC_REF);
 
-		// temporary variable to store question later
-		let questions: TypeQuestion<"fetch">[] = [];
-
 		// transform firebase doc into desirable doc
-		querySnapshot.forEach(async (doc) => {
-			const data = doc.data() as TypeQuestion<"push">;
-
-			// transform answer's id into real answer
-			const answers: string[] = [];
-			data.answerIds.forEach(async (id) => {
-				const data = await getAnswerById(id);
-				answers.push(data.answer);
-			});
-			// store to variable questions
-			questions.push({
-				id: doc.id,
-				question: data.question,
-				answers,
-				tags: data.tags,
-				uid: data.uid,
-			});
-		});
+		const questions = await Promise.all(
+			querySnapshot.docs.map(async (doc) => {
+				const data = doc.data() as TypeQuestion<"push">;
+				return {
+					id: doc.id,
+					...data,
+				};
+			})
+		);
 		return questions;
 	} catch (error) {
 		console.error("debug question.service: ", error);

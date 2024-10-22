@@ -2,14 +2,14 @@ declare type TypeQuestion<T extends "push" | "fetch"> = T extends "push"
 	? {
 			question: string;
 			answerIds: string[];
-			tags: string[] | string;
+			tags: string[];
 			uid: string; // firebase user uid
 	  }
 	: {
 			id: string;
 			question: string;
-			answers: string[];
-			tags: string[] | string;
+			answerIds: string[];
+			tags: string[];
 			uid: string;
 	  };
 
