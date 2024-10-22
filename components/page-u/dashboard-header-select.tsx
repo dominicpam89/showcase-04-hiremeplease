@@ -13,7 +13,7 @@ export default function DashboardHeaderSelect() {
 			<SelectTrigger className="w-full">
 				<SelectValue placeholder="Filter Question" />
 			</SelectTrigger>
-			<SelectContent className="text-xs py-2 px-4">
+			<SelectContent className="text-xs p-2">
 				<SelectItem value="data-1">Fetch database 1</SelectItem>
 				<SelectItem value="data-2">Fetch database 2</SelectItem>
 				<SelectItem value="data-3">Fetch database 3</SelectItem>
