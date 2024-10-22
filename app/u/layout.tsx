@@ -24,7 +24,11 @@ export default function Layout({ children }: PropsWithChildren) {
 							"py-3 px-6 flex gap-4 justify-between"
 						)}
 					>
-						<SearchBarUI />
+						<SearchBarUI
+							key="base-search"
+							compLabel="base-search"
+							placeholder="Search anything..."
+						/>
 						<NavbarDesktopUI />
 					</div>
 					<main className="px-8 py-4">{children}</main>
