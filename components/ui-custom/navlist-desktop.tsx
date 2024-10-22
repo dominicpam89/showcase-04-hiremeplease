@@ -19,7 +19,8 @@ export default function NavlistDesktop() {
 				"max-md:hidden",
 				{ "w-3/12": !minimizedSidebar },
 				{ "w-1/12": minimizedSidebar },
-				"p-6 flex flex-col gap-8 items-center",
+				"p-6 flex flex-col gap-8 items-start",
+				{ "items-center": minimizedSidebar },
 				"shadow-md shadow-primary/10 dark:shadow-primary-foreground/10",
 				"transition-all duration-150 ease-in-out"
 			)}
@@ -86,9 +87,9 @@ function MinimizeSidebarToggle({ toggle, minimized }: ToggleProps) {
 					"size-6",
 					"rounded-full",
 					"transform transition-all duration-300 ease-in-out",
-					"opacity-60",
-					"hover:scale-110 hover:opacity-80",
-					"active:scale-90 active:opacity-60",
+					"opacity-80",
+					"hover:scale-110 hover:opacity-100",
+					"active:scale-90 active:opacity-80",
 					{ "rotate-180": minimized },
 					{ "rotate-0": !minimized }
 				)}
