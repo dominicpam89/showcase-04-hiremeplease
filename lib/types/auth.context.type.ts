@@ -1,5 +1,4 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { User, UserCredential } from "firebase/auth";
 import { LimitedUserInfoType } from "../services/auth.service";
 
 type MutationData = { success: boolean; mesasge: string };
