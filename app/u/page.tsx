@@ -1,7 +1,11 @@
+import DashboardContent from "@/components/page-u/dashboard-content";
+import DashboardHeader from "@/components/page-u/dashboard-header";
+
 export default function Page() {
 	return (
-		<div aria-label="dashboard">
-			<h2>Dashboard</h2>
-		</div>
+		<>
+			<DashboardHeader />
+			<DashboardContent />
+		</>
 	);
 }
