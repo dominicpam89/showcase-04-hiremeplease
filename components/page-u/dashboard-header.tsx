@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SearchBarUI from "@/components/ui-custom/search-bar";
+import DashboardHeaderSelect from "./dashboard-header-select";
 
 export default function DashboardHeader() {
 	return (
@@ -11,9 +12,11 @@ export default function DashboardHeader() {
 			<h2
 				aria-label="header-title"
 				className={cn(
-					"w-full font-primary font-extrabold text-2xl uppercase",
+					"w-full font-primary font-extrabold uppercase",
 					"col-span-3",
-					"lg:col-span-1"
+					"lg:col-span-1",
+					"text-2xl",
+					"lg:text-lg"
 				)}
 			>
 				All Questions
@@ -34,12 +37,13 @@ export default function DashboardHeader() {
 				<div aria-label="search-bar-container" className={cn("col-span-2")}>
 					<SearchBarUI
 						key="dashboard-search"
+						inputId="dashboard-search"
 						compLabel="dashboard-search"
 						placeholder="search questions"
 					/>
 				</div>
 				<div aria-label="filter-container" className={cn("col-span-1")}>
-					Select Filter
+					<DashboardHeaderSelect />
 				</div>
 			</div>
 		</div>

@@ -26,6 +26,7 @@ export default function Layout({ children }: PropsWithChildren) {
 					>
 						<SearchBarUI
 							key="base-search"
+							inputId="base-search"
 							compLabel="base-search"
 							placeholder="Search anything..."
 						/>
