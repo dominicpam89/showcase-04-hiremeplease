@@ -1,14 +1,22 @@
-declare type TypeQuestion = {
-	id: string;
+type TypeQuestionBase = {
 	question: string;
-	answers: string[];
+	answerIds: string[];
 	tags: string[] | string;
 	uid: string; // firebase user uid
 };
 
-declare type TypeAnswer = {
-	id: string;
+declare type TypeQuestion<T extends "push" | "fetch"> = T extends "push"
+	? TypeQuestionBase
+	: TypeQuestionBase & {
+			id: string;
+	  };
+
+type TypeAnswerBase = {
 	answer: string;
 	questionId: string;
 	uid: string; // firebase user uid
 };
+
+declare type TypeAnswer<T extends "push" | "fetch"> = T extends "push"
+	? TypeAnswerBase
+	: TypeAnswerBase & { id: string };
