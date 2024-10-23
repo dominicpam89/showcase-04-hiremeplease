@@ -13,7 +13,7 @@ export default function Layout({ children }: PropsWithChildren) {
 			</header>
 			<div
 				aria-label="layout-main-client"
-				className="w-full min-h-screen flex"
+				className="max-md:pt-16 w-full h-screen flex overflow-hidden"
 			>
 				<NavlistDesktop />
 				<div aria-label="main-content" className="w-full">
@@ -32,7 +32,9 @@ export default function Layout({ children }: PropsWithChildren) {
 						/>
 						<NavbarDesktopUI />
 					</div>
-					<main className="px-8 py-4">{children}</main>
+					<main className="w-full h-full px-8 py-4 overflow-scroll">
+						{children}
+					</main>
 				</div>
 			</div>
 			<footer></footer>

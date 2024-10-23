@@ -7,6 +7,7 @@ export default function NavbarMobileUI() {
 		<nav
 			aria-label="navbar-mobile"
 			className={cn(
+				"absolute top-0 left-0",
 				"md:hidden",
 				"w-full p-4 flex justify-between gap-8 items-center",
 				"shadow-sm shadow-primary/10 dark:shadow-primary-foreground/10"
