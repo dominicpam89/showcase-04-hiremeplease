@@ -27,7 +27,10 @@ export default function NavlistMobileUI() {
 					size={20}
 				/>
 			</SheetTrigger>
-			<SheetContent aria-label="navlist-mobile" className="px-6 sm:px-12">
+			<SheetContent
+				aria-label="navlist-mobile"
+				className="px-6 sm:px-12 overflow-scroll"
+			>
 				<SheetHeader>
 					<SheetTitle className="flex gap-2 justify-center mb-2 items-center">
 						<LogoUI />
