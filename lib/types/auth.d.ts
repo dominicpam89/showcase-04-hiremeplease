@@ -30,9 +30,3 @@ declare interface MockUser {
 	password: string;
 	emailVerified: boolean;
 }
-
-declare interface SessionData {
-	uid: string;
-	email: string;
-	exp: number;
-}
