@@ -2,7 +2,7 @@ import PageHeader from "@/components/common/page-header";
 import {
 	dashboardSelectItems,
 	dashboardSortItems,
-} from "@/constant/page-filter";
+} from "@/constant/page-filter.constant";
 
 export default function DashboardHeader() {
 	return (

@@ -70,11 +70,13 @@ export default function PageHeader({
 				>
 					<PageHeaderFilter
 						key="filterBy"
+						paramsKey="filterBy"
 						items={headerSelectProps.items}
 						selectText={headerSelectProps.text}
 					/>
 					<PageHeaderFilter
 						key="sortBy"
+						paramsKey="sortBy"
 						items={headerSortProps.items}
 						selectText={headerSortProps.text}
 					/>

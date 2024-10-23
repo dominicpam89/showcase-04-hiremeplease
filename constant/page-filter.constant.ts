@@ -7,8 +7,8 @@ export const dashboardSelectItems: Items = [
 ];
 
 export const dashboardSortItems: Items = [
-	{ text: "Oldest", val: "oldest" },
 	{ text: "Newest", val: "newest" },
+	{ text: "Oldest", val: "oldest" },
 	{ text: "Recommended", val: "recommended" },
 	{ text: "Frequent", val: "frequent" },
 	{ text: "Unanswered", val: "unanswered" },
