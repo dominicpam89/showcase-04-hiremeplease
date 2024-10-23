@@ -5,7 +5,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui-custom/select-plain";
+} from "@/components/ui/select";
 import {
 	dashboardSelectItems,
 	dashboardSortItems,
