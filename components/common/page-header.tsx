@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SearchBarUI from "@/components/ui-custom/search-bar";
-import PageHeaderSelect from "./page-header-select";
+import PageHeaderFilter from "./page-header-filter";
 
 interface Props {
 	pageTitle: string;
+	headerCompLabel: string;
 	searchbarProps: {
 		key: string;
 		inputId: string;
@@ -12,46 +13,46 @@ interface Props {
 		placeholder: string;
 	};
 	headerSelectProps: {
-		items: { text: string; val: string }[];
+		items: TypeFilterSortItems[];
+		text: string;
+	};
+	headerSortProps: {
+		items: TypeFilterSortItems[];
 		text: string;
 	};
 }
 export default function PageHeader({
 	pageTitle,
+	headerCompLabel,
 	searchbarProps,
 	headerSelectProps,
+	headerSortProps,
 }: Props) {
 	return (
 		<div
-			aria-label="dashboard-header"
-			className={cn("w-full grid grid-cols-4 gap-2 items-center", "order-1")}
+			aria-label={headerCompLabel}
+			className={cn("w-full flex flex-col gap-4")}
 		>
-			<h2
-				aria-label="header-title"
-				className={cn(
-					"w-full font-primary font-extrabold uppercase",
-					"col-span-3",
-					"lg:col-span-1",
-					"text-2xl",
-					"lg:text-lg"
-				)}
-			>
-				{pageTitle}
-			</h2>
-			<Button className={cn("order-2 col-span-1", "lg:order-3")}>
-				Ask Question
-			</Button>
+			<div aria-label="header-row-1" className="w-full flex justify-between">
+				<h2
+					aria-label="header-title"
+					className={cn(
+						"w-1/2 font-primary font-extrabold uppercase",
+						"text-lg"
+					)}
+				>
+					{pageTitle}
+				</h2>
+				<Button size="sm">Ask Question</Button>
+			</div>
 			<div
-				aria-label="dashboard-navbar"
-				className={cn(
-					"mt-4",
-					"lg:mt-0",
-					"grid grid-cols-3 gap-2 items-center",
-					"order-3 col-span-4",
-					"lg:order-2 lg:col-span-2"
-				)}
+				aria-label="header-row-2"
+				className={cn("grid grid-cols-9 gap-2 items-center")}
 			>
-				<div aria-label="search-bar-container" className={cn("col-span-2")}>
+				<div
+					aria-label="search-bar-container"
+					className={cn("col-span-9", "md:col-span-5")}
+				>
 					<SearchBarUI
 						key={searchbarProps.key}
 						inputId={searchbarProps.inputId}
@@ -59,10 +60,23 @@ export default function PageHeader({
 						placeholder={searchbarProps.placeholder}
 					/>
 				</div>
-				<div aria-label="filter-container" className={cn("col-span-1")}>
-					<PageHeaderSelect
+				<div
+					aria-label="filter-container"
+					className={cn(
+						"col-span-9",
+						"md:col-span-4",
+						"grid grid-cols-2 gap-2"
+					)}
+				>
+					<PageHeaderFilter
+						key="filterBy"
 						items={headerSelectProps.items}
 						selectText={headerSelectProps.text}
+					/>
+					<PageHeaderFilter
+						key="sortBy"
+						items={headerSortProps.items}
+						selectText={headerSortProps.text}
 					/>
 				</div>
 			</div>

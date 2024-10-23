@@ -1,14 +1,14 @@
 import PageHeader from "@/components/common/page-header";
+import {
+	dashboardSelectItems,
+	dashboardSortItems,
+} from "@/constant/page-filter";
 
 export default function DashboardHeader() {
-	const selectItems = [
-		{ text: "Question", val: "question" },
-		{ text: "Tag", val: "tag" },
-		{ text: "User", val: "user" },
-	];
 	return (
 		<PageHeader
 			pageTitle="Ask Questions"
+			headerCompLabel="dashboard-header"
 			searchbarProps={{
 				key: "dashboard-search",
 				compLabel: "dashboard-search",
@@ -16,8 +16,12 @@ export default function DashboardHeader() {
 				placeholder: "search question",
 			}}
 			headerSelectProps={{
-				text: "Filter",
-				items: selectItems,
+				text: "SearchBy",
+				items: dashboardSelectItems,
+			}}
+			headerSortProps={{
+				text: "Sort",
+				items: dashboardSortItems,
 			}}
 		/>
 	);

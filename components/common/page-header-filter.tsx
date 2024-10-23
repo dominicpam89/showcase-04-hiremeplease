@@ -9,9 +9,9 @@ import {
 
 interface Props {
 	selectText: string;
-	items: { text: string; val: string }[];
+	items: TypeFilterSortItems[];
 }
-export default function PageHeaderSelect({ items, selectText }: Props) {
+export default function PageHeaderFilter({ items, selectText }: Props) {
 	return (
 		<Select>
 			<SelectTrigger className="w-full">
@@ -19,7 +19,11 @@ export default function PageHeaderSelect({ items, selectText }: Props) {
 			</SelectTrigger>
 			<SelectContent className="text-xs p-2">
 				{items.map((item) => {
-					return <SelectItem value={item.val}>{item.text}</SelectItem>;
+					return (
+						<SelectItem key={item.val} value={item.val}>
+							{item.text}
+						</SelectItem>
+					);
 				})}
 			</SelectContent>
 		</Select>
