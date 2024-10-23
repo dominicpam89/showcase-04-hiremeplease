@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SearchBarUI from "@/components/ui-custom/search-bar";
 import PageHeaderFilter from "./page-header-filter";
+import { Suspense } from "react";
 
 interface Props {
 	pageTitle: string;
@@ -68,18 +69,20 @@ export default function PageHeader({
 						"grid grid-cols-2 gap-2"
 					)}
 				>
-					<PageHeaderFilter
-						key="filterBy"
-						paramsKey="filterBy"
-						items={headerSelectProps.items}
-						selectText={headerSelectProps.text}
-					/>
-					<PageHeaderFilter
-						key="sortBy"
-						paramsKey="sortBy"
-						items={headerSortProps.items}
-						selectText={headerSortProps.text}
-					/>
+					<Suspense fallback={<p>Loading...</p>}>
+						<PageHeaderFilter
+							key="filterBy"
+							paramsKey="filterBy"
+							items={headerSelectProps.items}
+							selectText={headerSelectProps.text}
+						/>
+						<PageHeaderFilter
+							key="sortBy"
+							paramsKey="sortBy"
+							items={headerSortProps.items}
+							selectText={headerSortProps.text}
+						/>
+					</Suspense>
 				</div>
 			</div>
 		</div>
