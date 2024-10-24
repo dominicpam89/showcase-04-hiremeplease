@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 
 interface IntContextLoaderUI {
 	visible: boolean;
@@ -17,10 +17,11 @@ interface Props {
 }
 export default function ContextLoaderUIProvider({ children }: Props) {
 	const [visible, setVisible] = useState(false);
-	const toggleOn = () => setVisible(true);
-	const toggleOff = () => setVisible(false);
+	const toggleOn = useCallback(() => setVisible(true), []);
+	const toggleOff = useCallback(() => setVisible(false), []);
+	const value = useMemo(() => ({ visible, toggleOff, toggleOn }), [visible]);
 	return (
-		<ContextLoaderUI.Provider value={{ visible, toggleOn, toggleOff }}>
+		<ContextLoaderUI.Provider value={value}>
 			{children}
 		</ContextLoaderUI.Provider>
 	);
