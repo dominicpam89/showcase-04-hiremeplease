@@ -1,17 +1,18 @@
 // Question Type
 type TypeQuestionPush = {
 	question: string;
-	answerIds: string[];
 	tags: string[];
 	uid: string; // author firebase user's id
 };
 
 type TypeQuestionFetchRaw = TypeQuestionPush & {
+	answerIds: string[];
 	views: number;
 	upvotes: number;
 };
 type TypeQuestionFetch = TypeQuestionPush & {
 	id: string;
+	answerIds: string[];
 	views: number;
 	upvotes: number;
 };
