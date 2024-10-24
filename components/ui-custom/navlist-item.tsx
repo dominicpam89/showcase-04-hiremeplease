@@ -1,9 +1,7 @@
 "use client";
-import { ContextLoaderUI } from "@/lib/context/loader.context";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useContext } from "react";
 
 interface Props {
 	item: TypeNavItem;
@@ -16,7 +14,6 @@ export default function NavlistItemUI({
 	onSelect = () => {},
 }: Props) {
 	const pathname = usePathname();
-	const { toggleOn } = useContext(ContextLoaderUI);
 
 	let isActive = item.link == pathname;
 
@@ -25,7 +22,6 @@ export default function NavlistItemUI({
 	}
 
 	const onLinkClick = async () => {
-		toggleOn();
 		onSelect();
 	};
 

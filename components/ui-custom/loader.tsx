@@ -1,20 +1,18 @@
 "use client";
 import sx from "./loader.module.css";
-import { useContext } from "react";
-import { ContextLoaderUI } from "@/lib/context/loader.context";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
-export default function LoaderTestUI() {
-	const { visible } = useContext(ContextLoaderUI);
+export function LoaderComp() {
 	return (
-		<div
+		<motion.div
 			aria-label="page-transition-component"
-			className={cn(
-				"absolute z-50 inset-0 min-h-screen w-full bg-primary",
-				"transition-all duration-150 ease-in-out pointer-events-none",
-				{ "opacity-0 -z-[999]": !visible },
-				{ "opacity-90 z-[999]": visible }
-			)}
+			className={cn("absolute z-50 inset-0 min-h-screen w-full bg-primary")}
+			initial={{ opacity: 0, zIndex: -999 }}
+			animate={{ opacity: 0.9, zIndex: 999 }}
+			exit={{ opacity: 0, zIndex: -999 }}
+			transition={{ duration: 0.3 }}
 		>
 			<div
 				aria-label="loader-container"
@@ -22,6 +20,15 @@ export default function LoaderTestUI() {
 			>
 				<div aria-label="loading-component" className={sx.loader}></div>
 			</div>
-		</div>
+		</motion.div>
+	);
+}
+
+export default function LoaderUI() {
+	const pathname = usePathname();
+	return (
+		<AnimatePresence>
+			<LoaderComp key={pathname} />
+		</AnimatePresence>
 	);
 }

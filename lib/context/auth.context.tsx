@@ -1,6 +1,6 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
 	loginWithPassword,
 	registerWithPassword,
@@ -12,7 +12,6 @@ import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { auth } from "@/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { ContextLoaderUI } from "./loader.context";
 
 export const ContextAuth = createContext<ContextAuthType | null>(null);
 
@@ -20,32 +19,22 @@ interface Props {
 	children: React.ReactNode;
 }
 export default function ContextAuthProvider({ children }: Props) {
-	const { toggleOn } = useContext(ContextLoaderUI);
 	const router = useRouter();
 
 	const signinState = useMutation({
 		mutationFn: loginWithPassword,
-		onMutate() {
-			toggleOn();
-		},
 		onSuccess: () => {
 			router.push("/auth/success?type=login");
 		},
 	});
 	const signupState = useMutation({
 		mutationFn: registerWithPassword,
-		onMutate: () => {
-			toggleOn();
-		},
 		onSuccess: () => {
 			router.push("/auth/success?type=register");
 		},
 	});
 	const signoutState = useMutation({
 		mutationFn: logout,
-		onMutate() {
-			toggleOn();
-		},
 		onSuccess: () => {
 			router.push("/login");
 		},

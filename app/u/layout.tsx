@@ -7,7 +7,7 @@ import NavlistDesktop from "@/components/ui-custom/navlist-desktop";
 
 export default function Layout({ children }: PropsWithChildren) {
 	return (
-		<div className="relative">
+		<div id="u-root-layout" className="relative">
 			<header className="relative">
 				<NavbarMobileUI />
 			</header>

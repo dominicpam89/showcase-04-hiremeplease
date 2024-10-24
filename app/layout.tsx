@@ -4,8 +4,6 @@ import "./globals.css";
 import ThemeProvider from "@/components/themes/theme-provider";
 import QueryClientProvider from "@/lib/context/tanstack.context";
 import ContextAuthProvider from "@/lib/context/auth.context";
-import LoaderUI from "@/components/ui-custom/loader";
-import ContextLoaderUIProvider from "@/lib/context/loader.context";
 
 const fontPrimary = Montserrat({
 	subsets: ["latin"],
@@ -41,14 +39,9 @@ export default function RootLayout({
 				className={`${fontPrimary.variable} ${fontSecondary.variable} font-secondary antialiased`}
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					<ContextLoaderUIProvider>
-						<QueryClientProvider>
-							<ContextAuthProvider>
-								<LoaderUI />
-								{children}
-							</ContextAuthProvider>
-						</QueryClientProvider>
-					</ContextLoaderUIProvider>
+					<QueryClientProvider>
+						<ContextAuthProvider>{children}</ContextAuthProvider>
+					</QueryClientProvider>
 				</ThemeProvider>
 			</body>
 		</html>

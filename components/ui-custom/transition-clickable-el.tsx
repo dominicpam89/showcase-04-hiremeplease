@@ -1,5 +1,4 @@
-import { ContextLoaderUI } from "@/lib/context/loader.context";
-import { HTMLAttributes, useContext } from "react";
+import { HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
 	readonly children: React.ReactNode;
@@ -10,9 +9,7 @@ export default function TransAnyUI({
 	onClick = () => {},
 	...props
 }: Props) {
-	const { toggleOn } = useContext(ContextLoaderUI);
 	const onElementClick = async (e: any) => {
-		toggleOn();
 		onClick();
 	};
 	return (
