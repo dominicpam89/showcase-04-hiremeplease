@@ -10,7 +10,7 @@ export function LoaderComp() {
 			aria-label="page-transition-component"
 			className={cn("absolute z-50 inset-0 min-h-screen w-full bg-primary")}
 			initial={{ opacity: 0, zIndex: -999 }}
-			animate={{ opacity: 0.9, zIndex: 999 }}
+			animate={{ opacity: 0.8, zIndex: 999 }}
 			exit={{ opacity: 0, zIndex: -999 }}
 			transition={{ duration: 0.3 }}
 		>
