@@ -13,12 +13,14 @@ import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import FormErrorUI from "./form-error";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { useContext } from "react";
+import { ContextAuth } from "@/lib/context/auth.context";
+import { ContextAuthType } from "@/lib/types/auth.context.type";
 
 export default function FormRegisterUI() {
 	const {
 		signupState: { mutate, isError, error, isPending },
-	} = useContextAuth();
+	} = useContext(ContextAuth) as ContextAuthType;
 	const hookForm = useForm<FormRegisterType>({
 		defaultValues: {
 			firstName: "First",

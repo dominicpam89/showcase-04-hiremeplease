@@ -57,7 +57,7 @@ export default function NavlistMobileUI() {
 							onSelect={toggleClose}
 						/>
 					))}
-					<NavlistMobileLogout />
+					<NavlistMobileLogout onSelect={toggleClose} />
 				</ul>
 			</SheetContent>
 		</Sheet>

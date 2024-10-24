@@ -1,16 +1,16 @@
 "use client";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { ContextAuth } from "@/lib/context/auth.context";
+import { ContextAuthType } from "@/lib/types/auth.context.type";
 import { LogOutIcon } from "lucide-react";
+import { useContext } from "react";
 
 export default function NavbarDesktopLogoutUI() {
-	const { signoutState } = useContextAuth();
+	const { signoutState } = useContext(ContextAuth) as ContextAuthType;
 	return (
 		<DropdownMenuItem
-			onClick={() => {
-				signoutState.mutate();
-			}}
-			className="flex gap-2"
+			className="flex gap-2 items-center"
+			onClick={() => signoutState.mutate()}
 		>
 			<LogOutIcon size={12} />
 			<span>Logout</span>

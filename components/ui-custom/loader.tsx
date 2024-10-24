@@ -1,26 +1,26 @@
+"use client";
 import sx from "./loader.module.css";
-import { motion } from "framer-motion";
+import { useContext } from "react";
+import { ContextLoaderUI } from "@/lib/context/loader.context";
+import { cn } from "@/lib/utils";
 
-export default function LoaderUI() {
+export default function LoaderTestUI() {
+	const { visible } = useContext(ContextLoaderUI);
 	return (
-		<motion.div
+		<div
 			aria-label="page-transition-component"
-			className="absolute inset-0 min-h-screen w-full bg-primary"
-			initial={{ opacity: 0.9, zIndex: 50 }}
-			animate={{ opacity: 0, zIndex: -50 }}
-			exit={{ opacity: 0.9, zIndex: 50 }}
-			transition={{ duration: 0.2, delay: 0.2 }}
+			className={cn(
+				"absolute z-50 inset-0 min-h-screen w-full bg-primary opacity-90",
+				{ hidden: !visible },
+				{ visible: visible }
+			)}
 		>
-			<motion.div
+			<div
 				aria-label="loader-container"
 				className="w-full h-full flex justify-center items-center"
-				initial={{ opacity: 1 }}
-				animate={{ opacity: 0 }}
-				exit={{ opacity: 1 }}
-				transition={{ duration: 0.1, delay: 0.2 }}
 			>
 				<div aria-label="loading-component" className={sx.loader}></div>
-			</motion.div>
-		</motion.div>
+			</div>
+		</div>
 	);
 }

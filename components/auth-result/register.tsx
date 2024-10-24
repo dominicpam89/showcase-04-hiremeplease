@@ -1,10 +1,12 @@
 "use client";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
-import Link from "next/link";
+import { ContextAuth } from "@/lib/context/auth.context";
+import { ContextAuthType } from "@/lib/types/auth.context.type";
+import { useContext } from "react";
+import TransLink from "../ui-custom/transition-link";
 
 export default function AuthResultRegister() {
-	const { userState } = useContextAuth();
+	const { userState } = useContext(ContextAuth) as ContextAuthType;
 	return (
 		<Alert
 			aria-label="auth-login-result"
@@ -15,12 +17,12 @@ export default function AuthResultRegister() {
 			</AlertTitle>
 			<AlertDescription>
 				Welcome {userState!.displayName}
-				<Link
+				<TransLink
 					href={process.env.NEXT_PUBLIC_HOMEPAGE as string}
 					className="underline underline-offset-4 transition-all ease-in-out font-normal hover:font-bold"
 				>
 					Click here
-				</Link>{" "}
+				</TransLink>{" "}
 				to redirect to dashboard right away
 			</AlertDescription>
 		</Alert>

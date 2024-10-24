@@ -1,10 +1,13 @@
 "use client";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { ContextAuth } from "@/lib/context/auth.context";
+import { ContextAuthType } from "@/lib/types/auth.context.type";
 
 export default function Layout({ children }: PropsWithChildren) {
-	const { signoutState, userState } = useContextAuth();
+	const { signoutState, userState } = useContext(
+		ContextAuth
+	) as ContextAuthType;
 	return (
 		<main
 			aria-label="layout-homepage"

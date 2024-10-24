@@ -12,10 +12,12 @@ import { Button } from "@/components/ui/button";
 import AuthProvidersUI from "./providers";
 import AuthSwitchButton from "./switch";
 import FormErrorUI from "./form-error";
-import { useContextAuth } from "@/lib/hooks/useContextAuth";
+import { useContext } from "react";
+import { ContextAuth } from "@/lib/context/auth.context";
+import { ContextAuthType } from "@/lib/types/auth.context.type";
 
 export default function FormLoginUI() {
-	const { signinState } = useContextAuth();
+	const { signinState } = useContext(ContextAuth) as ContextAuthType;
 	const { mutate, isError, error, isPending } = signinState;
 	const hookForm = useForm<FormLoginType>({
 		defaultValues: {

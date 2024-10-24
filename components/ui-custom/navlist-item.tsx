@@ -1,7 +1,10 @@
 "use client";
+import { ContextLoaderUI } from "@/lib/context/loader.context";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useContext } from "react";
+import { delayUtil } from "@/lib/utils";
 
 interface Props {
 	item: TypeNavItem;
@@ -14,12 +17,20 @@ export default function NavlistItemUI({
 	onSelect = () => {},
 }: Props) {
 	const pathname = usePathname();
+	const { toggleOn, toggleOff } = useContext(ContextLoaderUI);
 
 	let isActive = item.link == pathname;
 
 	if (item.link == "/u" && pathname == "/u") {
 		isActive = true;
 	}
+
+	const onLinkClick = async () => {
+		toggleOn();
+		onSelect();
+		await delayUtil();
+		toggleOff();
+	};
 
 	return (
 		<li
@@ -36,7 +47,7 @@ export default function NavlistItemUI({
 		>
 			<Link
 				href={item.link}
-				onClick={onSelect}
+				onClick={onLinkClick}
 				className={cn("flex gap-2 items-center")}
 			>
 				{item.icon}
