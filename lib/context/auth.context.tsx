@@ -20,7 +20,7 @@ interface Props {
 	children: React.ReactNode;
 }
 export default function ContextAuthProvider({ children }: Props) {
-	const { toggleOff, toggleOn } = useContext(ContextLoaderUI);
+	const { toggleOn } = useContext(ContextLoaderUI);
 	const router = useRouter();
 
 	const signinState = useMutation({
@@ -29,7 +29,6 @@ export default function ContextAuthProvider({ children }: Props) {
 			toggleOn();
 		},
 		onSuccess: () => {
-			toggleOff();
 			router.push("/auth/success?type=login");
 		},
 	});
@@ -39,7 +38,6 @@ export default function ContextAuthProvider({ children }: Props) {
 			toggleOn();
 		},
 		onSuccess: () => {
-			toggleOff();
 			router.push("/auth/success?type=register");
 		},
 	});
@@ -49,7 +47,6 @@ export default function ContextAuthProvider({ children }: Props) {
 			toggleOn();
 		},
 		onSuccess: () => {
-			toggleOff();
 			router.push("/login");
 		},
 	});

@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
-import { delayUtil } from "@/lib/utils";
 
 interface Props {
 	item: TypeNavItem;
@@ -17,7 +16,7 @@ export default function NavlistItemUI({
 	onSelect = () => {},
 }: Props) {
 	const pathname = usePathname();
-	const { toggleOn, toggleOff } = useContext(ContextLoaderUI);
+	const { toggleOn } = useContext(ContextLoaderUI);
 
 	let isActive = item.link == pathname;
 
@@ -28,8 +27,6 @@ export default function NavlistItemUI({
 	const onLinkClick = async () => {
 		toggleOn();
 		onSelect();
-		await delayUtil();
-		toggleOff();
 	};
 
 	return (

@@ -10,9 +10,10 @@ export default function LoaderTestUI() {
 		<div
 			aria-label="page-transition-component"
 			className={cn(
-				"absolute z-50 inset-0 min-h-screen w-full bg-primary opacity-90",
-				{ hidden: !visible },
-				{ visible: visible }
+				"absolute z-50 inset-0 min-h-screen w-full bg-primary",
+				"transition-all duration-150 ease-in-out pointer-events-none",
+				{ "opacity-0 -z-[999]": !visible },
+				{ "opacity-90 z-[999]": visible }
 			)}
 		>
 			<div
