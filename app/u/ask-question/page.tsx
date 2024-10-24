@@ -1,7 +1,12 @@
+import AskQuestionForm from "@/components/page-ask-question/form";
+import { cookies } from "next/headers";
+
 export default function Page() {
+	const sessionToken = cookies().get("session-token")!.value;
+	const { uid } = JSON.parse(sessionToken);
 	return (
 		<>
-			<h1 className="heading-1">Ask Questions Page</h1>
+			<AskQuestionForm uid={uid} />
 		</>
 	);
 }

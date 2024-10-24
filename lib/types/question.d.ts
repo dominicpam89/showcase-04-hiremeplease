@@ -1,4 +1,5 @@
 // Question Type
+
 type TypeQuestionPush = {
 	question: string;
 	tags: string[];

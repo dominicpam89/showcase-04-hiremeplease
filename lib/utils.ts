@@ -10,3 +10,7 @@ export async function delayUtil(del: number = 200) {
 		setTimeout(() => resolve(true), del);
 	});
 }
+
+export function generateRandomId() {
+	return Math.round(Math.random() * 31431);
+}

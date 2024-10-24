@@ -1,9 +1,7 @@
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { HTMLInputTypeAttribute, useState } from "react";
+import { HTMLInputTypeAttribute } from "react";
 import { FieldValues, FieldError, Path, useFormContext } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface InputGroupProps<T extends FieldValues> {
 	placeholder: string;
