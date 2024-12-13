@@ -1,4 +1,4 @@
-import { getQuestions } from "@/lib/services/question.service"
+import { getQuestions } from "@/lib/services/question.service.mock"
 import { Suspense } from "react"
 import Question from "./dashboard-content-question"
 

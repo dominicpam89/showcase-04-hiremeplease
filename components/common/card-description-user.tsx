@@ -1,4 +1,4 @@
-import { getUserNameById } from "@/lib/services/user.service"
+import { readUser } from "@/lib/services/user.service.mock"
 import { Suspense } from "react"
 
 interface Props {
@@ -7,7 +7,9 @@ interface Props {
 export default async function CardDescriptionUser({
      uid,
 }: Props) {
-     const fullName = await getUserNameById(uid)
+     const user = await readUser(uid)
+     if (!user) return <span>User not found</span>
+     const fullName = user.name
      const userName = {
           first: fullName.first || "anon",
           last: fullName.last || "",

@@ -11,6 +11,18 @@ export async function delayUtil(del: number = 200) {
      })
 }
 
+export async function delayRangeUtil(
+     tMax: number = 5000,
+     tMin: number = 3000
+) {
+     const randomTimer = Math.round(
+          Math.random() * (tMax - tMin) + tMin
+     )
+     return new Promise((resolve) => {
+          setTimeout(() => resolve(true), randomTimer)
+     })
+}
+
 export function generateRandomId() {
      return Math.round(Math.random() * 31431)
 }

@@ -38,7 +38,3 @@ export async function getQuestions(): Promise<
           throw error
      }
 }
-
-export async function addQuestion(
-     question: TypeQuestion<"push">
-) {}

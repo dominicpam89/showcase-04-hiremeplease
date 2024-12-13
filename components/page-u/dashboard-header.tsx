@@ -63,8 +63,8 @@ export default function PageHeader() {
                               fallback={<p>Loading...</p>}
                          >
                               <DashboardHeaderFilter
-                                   key="filterBy"
-                                   paramsKey="filterBy"
+                                   key="filter"
+                                   paramsKey="filter"
                                    items={
                                         dashboardSelectItems
                                    }

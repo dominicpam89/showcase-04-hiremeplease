@@ -1,4 +1,4 @@
-import { getTopAnswersByQuestionId } from "@/lib/services/answer.service"
+import { getAnswers } from "@/lib/services/answer.service.mock"
 import DashboardContentAnswer from "./dashboard-content-answer"
 import { Suspense } from "react"
 
@@ -8,10 +8,9 @@ interface Props {
 export default async function TopAnswers({
      questionId,
 }: Props) {
-     const answers = await getTopAnswersByQuestionId(
-          2,
-          questionId
-     )
+     const answers = await getAnswers(questionId)
+     if (!answers)
+          return <div>{"There isn't any answer"}</div>
      return (
           <div
                aria-label="top-two-answers-container"

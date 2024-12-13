@@ -6,21 +6,53 @@ import {
      SelectTrigger,
      SelectValue,
 } from "@/components/ui/select"
-import { useSearchParams } from "next/navigation"
+import {
+     usePathname,
+     useRouter,
+     useSearchParams,
+} from "next/navigation"
+import { useState } from "react"
 
 interface Props {
      selectText: string
      items: TypeFilterSortItems[]
-     paramsKey: "filterBy" | "sortBy"
+     paramsKey: "filter" | "sortBy"
 }
 
 export default function DashboardHeaderFilter({
      items,
      selectText,
+     paramsKey,
 }: Props) {
-     const searchParams = useSearchParams()
+     const router = useRouter()
+     const path = usePathname()
+     const getParams = useSearchParams()
+     const initialSelectValue = getParams.get(paramsKey)!
+     const [selected, setSelected] = useState(
+          initialSelectValue
+     )
+     const onValueChange = (val: string) => {
+          setSelected(val)
+          const [filterVal, sortByVal] = getParams
+               .toString()
+               .split("&")
+          if (paramsKey == "filter") {
+               router.push(
+                    `${path}?filter=${val}&${sortByVal}`
+               )
+          }
+          if (paramsKey == "sortBy") {
+               router.push(
+                    `${path}?${filterVal}&sortBy=${val}`
+               )
+          }
+     }
      return (
-          <Select>
+          <Select
+               defaultValue={selected}
+               onValueChange={onValueChange}
+               value={selected}
+          >
                <SelectTrigger className="w-full">
                     <SelectValue placeholder={selectText} />
                </SelectTrigger>
