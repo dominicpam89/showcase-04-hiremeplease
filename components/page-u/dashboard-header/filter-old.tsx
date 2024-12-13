@@ -9,7 +9,7 @@ import {
 import {
      dashboardSelectItems,
      dashboardSortItems,
-} from "@/constant/page-filter.constant"
+} from "@/constant/page-header-filter.constant"
 import {
      usePathname,
      useRouter,
@@ -22,7 +22,7 @@ interface Props {
      items: TypeFilterSortItems[]
      paramsKey: "filterBy" | "sortBy"
 }
-export default function PageHeaderFilter({
+export default function DashboardHeaderFilter({
      items,
      selectText,
      paramsKey,
