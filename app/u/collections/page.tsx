@@ -1,7 +1,7 @@
 export default function Page() {
-	return (
-		<>
-			<h2>Collections Page</h2>
-		</>
-	);
+     return (
+          <>
+               <h2>Collections Page</h2>
+          </>
+     )
 }

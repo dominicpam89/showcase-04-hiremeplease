@@ -20,13 +20,13 @@
  *
  * export default AuthPage;
  */
-declare type AuthResultType = "register" | "login";
+declare type AuthResultType = "register" | "login"
 
-declare type AuthResult = "success" | "fail";
+declare type AuthResult = "success" | "fail"
 
 declare interface MockUser {
-	uid: string;
-	email: string;
-	password: string;
-	emailVerified: boolean;
+     uid: string
+     email: string
+     password: string
+     emailVerified: boolean
 }

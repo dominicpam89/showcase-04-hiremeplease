@@ -1,7 +1,7 @@
 export default function Page() {
-	return (
-		<>
-			<h2>Tags Page</h2>
-		</>
-	);
+     return (
+          <>
+               <h2>Tags Page</h2>
+          </>
+     )
 }

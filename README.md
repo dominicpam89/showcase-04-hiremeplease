@@ -6,20 +6,20 @@ Welcome to Teach and Tackle – where Next.js 14+ meets the elegance of Firebase
 
 ## 🏭**Tech Stack**
 
--  Next.js 14+ with App Router
--  Firebase for all things authentication and database
--  Tanstack Query for smooth data handling
--  Tailwind CSS and Radix UI for style and structure
--  Framer Motion for sleek animations
--  ShadCN for that extra touch of class
+- Next.js 14+ with App Router
+- Firebase for all things authentication and database
+- Tanstack Query for smooth data handling
+- Tailwind CSS and Radix UI for style and structure
+- Framer Motion for sleek animations
+- ShadCN for that extra touch of class
 
 ## 🌟**Key Features**
 
--  SSR & SSG: Get the best of both worlds – a blend of Server-Side Rendering and Static Site Generation.
--  Firebase Power-Up: Handling data and images like a champ.
--  Responsive Design: Works on any device, from phones to desktops, without breaking a sweat.
--  Front-End Animations: Framer Motion brings pages to life.
--  SEO Optimization: Because who doesn’t want to get noticed by Google?
+- SSR & SSG: Get the best of both worlds – a blend of Server-Side Rendering and Static Site Generation.
+- Firebase Power-Up: Handling data and images like a champ.
+- Responsive Design: Works on any device, from phones to desktops, without breaking a sweat.
+- Front-End Animations: Framer Motion brings pages to life.
+- SEO Optimization: Because who doesn’t want to get noticed by Google?
 
 ## 🛩️**Project Overview**
 
@@ -50,11 +50,11 @@ Open http://localhost:3000 in your browser to see the project in action!
 
 This is just the beginning. Here’s what we’re working on next:
 
--  User Profiles for customized experiences
--  Community Moderation tools to keep the trolls at bay
--  Enhanced Analytics for deep insights
--  Additional Integrations with third-party services
-   Stay tuned, because the best is yet to come!
+- User Profiles for customized experiences
+- Community Moderation tools to keep the trolls at bay
+- Enhanced Analytics for deep insights
+- Additional Integrations with third-party services
+  Stay tuned, because the best is yet to come!
 
 ## License
 

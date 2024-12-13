@@ -1,4 +1,4 @@
 export type TypeFormstate = {
-	message: string;
-	status: "error" | "success" | "idle";
-};
+     message: string
+     status: "error" | "success" | "idle"
+}
