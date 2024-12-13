@@ -1,3 +1,4 @@
+"use server"
 import { delayRangeUtil } from "../utils"
 
 const answersMock: TypeAnswerFetch[] = [
@@ -92,7 +93,7 @@ const answersMock: TypeAnswerFetch[] = [
 ]
 
 export async function getAnswers(questionId: string) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const answers = answersMock.filter(
                (ans) => ans.questionId == questionId
@@ -109,7 +110,7 @@ export async function getAnswers(questionId: string) {
 }
 
 export async function getAnswer(id: string) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const answer = answersMock.find(
                (ans) => ans.id == id
@@ -124,7 +125,7 @@ export async function getAnswer(id: string) {
 }
 
 export async function getAnswersByUser(uid: string) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const answers = answersMock.filter(
                (ans) => ans.uid == uid
@@ -144,7 +145,7 @@ export async function createAnswer(
      questionId: string,
      formData: TypeAnswerPush
 ) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const lastId = Number(
                answersMock[answersMock.length - 1].id
@@ -167,7 +168,7 @@ export async function updateAnswer(
      id: string,
      answer: Partial<TypeAnswerPush>
 ) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const existingAnswerIndex = answersMock.findIndex(
                (ans) => ans.id === id
@@ -192,7 +193,7 @@ export async function updateAnswer(
 }
 
 export async function deleteAnswer(id: string) {
-     await delayRangeUtil(3000, 1000)
+     await delayRangeUtil(805, 150)
      try {
           const answerIndex = answersMock.findIndex(
                (ans) => ans.id === id

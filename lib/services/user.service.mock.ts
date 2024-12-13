@@ -1,3 +1,4 @@
+"use server"
 import { delayRangeUtil } from "../utils"
 
 // User Mock Data
@@ -37,7 +38,7 @@ export async function createUser(
      userData: TypeStoredUser
 ): Promise<void> {
      try {
-          await delayRangeUtil()
+          await delayRangeUtil(870, 120)
           users[uid] = userData
           console.log(
                `User with UID ${uid} created successfully.`
@@ -54,11 +55,8 @@ export async function readUser(
      uid: string
 ): Promise<TypeStoredUser | null> {
      try {
-          await delayRangeUtil()
+          await delayRangeUtil(870, 120)
           if (users[uid]) {
-               console.log(
-                    `User with UID ${uid} fetched successfully.`
-               )
                return users[uid]
           } else {
                console.warn(
@@ -82,7 +80,7 @@ export async function updateUser(
      userData: Partial<TypeStoredUser>
 ): Promise<void> {
      try {
-          await delayRangeUtil()
+          await delayRangeUtil(870, 120)
           if (users[uid]) {
                users[uid] = { ...users[uid], ...userData }
                console.log(
@@ -105,7 +103,7 @@ export async function deleteUser(
      uid: string
 ): Promise<void> {
      try {
-          await delayRangeUtil()
+          await delayRangeUtil(870, 120)
           if (users[uid]) {
                delete users[uid]
                console.log(

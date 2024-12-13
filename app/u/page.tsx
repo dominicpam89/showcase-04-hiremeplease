@@ -44,6 +44,9 @@ export default function Page({ searchParams }: Props) {
           questionSortBy
      )
 
+     console.log(invalidFilter)
+     console.log(invalidSortBy)
+
      const missingFilter = !filter && sortBy
      const missingSortBy = filter && !sortBy
      const missingParams = !filter && !sortBy
@@ -53,11 +56,17 @@ export default function Page({ searchParams }: Props) {
      if (missingFilter && invalidSortBy) {
           return redirect(getPathname("question", "newest"))
      }
+     if (!missingFilter && invalidSortBy) {
+          return redirect(getPathname(filter, "newest"))
+     }
      if (missingSortBy && !invalidFilter) {
           return redirect(getPathname(filter, "newest"))
      }
      if (missingSortBy && invalidFilter) {
           return redirect(getPathname("question", "newest"))
+     }
+     if (!missingSortBy && invalidFilter) {
+          return redirect(getPathname("question", sortBy))
      }
      if (missingParams) {
           return redirect(getPathname("question", "newest"))

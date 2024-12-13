@@ -1,3 +1,4 @@
+"use server"
 import { delayRangeUtil } from "../utils"
 
 type TQuestionMock = TypeQuestion<"fetch">
@@ -72,12 +73,12 @@ const questionsMock: TQuestionMock[] = [
 ]
 
 export async function getQuestions() {
-     await delayRangeUtil()
+     await delayRangeUtil(800, 150)
      return questionsMock
 }
 
 export async function getQuestion(id: string) {
-     await delayRangeUtil()
+     await delayRangeUtil(800, 150)
      try {
           const question = questionsMock.find(
                (q) => q.id == id
@@ -95,7 +96,7 @@ export async function getQuestion(id: string) {
 export async function createQuestion(
      formData: Omit<TQuestionMock, "id">
 ) {
-     await delayRangeUtil()
+     await delayRangeUtil(800, 150)
      try {
           const lastIdNumber =
                questionsMock[questionsMock.length - 1].id
@@ -114,7 +115,7 @@ export async function updateQuestion(
      id: string,
      formData: Partial<Omit<TQuestionMock, "id">>
 ) {
-     await delayRangeUtil()
+     await delayRangeUtil(800, 150)
      try {
           const question = await getQuestion(id)
           const index = questionsMock.findIndex(
@@ -135,7 +136,7 @@ export async function updateQuestion(
 }
 
 export async function deleteQuestion(id: string) {
-     await delayRangeUtil()
+     await delayRangeUtil(800, 150)
      try {
           const index = questionsMock.findIndex(
                (q) => q.id == id

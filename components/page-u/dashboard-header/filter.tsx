@@ -38,17 +38,15 @@ export default function DashboardHeaderFilter({
                .split("&")
           if (paramsKey == "filter") {
                console.log("filter is changed")
-               router.push(
+               router.replace(
                     `${path}?filter=${val}&${sortByVal}`
                )
-               router.refresh()
           }
           if (paramsKey == "sortBy") {
                console.log("sortBy is changed")
-               router.push(
+               router.replace(
                     `${path}?${filterVal}&sortBy=${val}`
                )
-               router.refresh()
           }
      }
      return (
