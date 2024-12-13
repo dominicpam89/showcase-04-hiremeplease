@@ -12,6 +12,7 @@ import { db } from "@/firebase.config";
 
 const COLLECTION_NAME = "teatac-answers";
 const DOC_REF = collection(db, COLLECTION_NAME);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DOC = doc(DOC_REF);
 
 export async function getAnswers() {

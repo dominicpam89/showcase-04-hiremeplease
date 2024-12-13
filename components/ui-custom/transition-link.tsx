@@ -7,6 +7,7 @@ interface Props extends LinkProps {
 }
 export default function TransLink({ children, ...props }: Props) {
 	const router = useRouter();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onLinkClick = async (e: any) => {
 		e.preventDefault();
 		router.push(props.href.toString());

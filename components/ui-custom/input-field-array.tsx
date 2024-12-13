@@ -64,7 +64,9 @@ export default function InputFieldArray<T extends FieldValues>({
 	}, [userInput]);
 	// Set value of real input that is hooked by react hook form
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		setValue(name, tags.join(",") as any);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tags]);
 
 	return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, ButtonProps } from "@/components/ui/button";
 
 interface Props extends ButtonProps {
@@ -9,6 +10,7 @@ export default function TransButtonUI({
 	onClick = () => {},
 	...props
 }: Props) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onButtonClick = async (e: any) => {
 		e.preventDefault();
 		onClick();

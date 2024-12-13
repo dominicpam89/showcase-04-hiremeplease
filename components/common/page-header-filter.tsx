@@ -44,7 +44,7 @@ export default function PageHeaderFilter({
 		if (hasSort && !isFilterBy) {
 			setSelect(searchParams.get("sortBy")!);
 		}
-	}, [hasFilter, hasSort, isFilterBy]);
+	}, [hasFilter, hasSort, isFilterBy, searchParams]);
 
 	// default search params if its empty
 	useEffect(() => {
@@ -57,6 +57,7 @@ export default function PageHeaderFilter({
 					dashboardSortItems.at(0)?.val
 			);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchParams]);
 
 	const onValueChange = (val: string) => {

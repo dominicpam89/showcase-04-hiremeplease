@@ -14,7 +14,7 @@ export default function AuthResultLogin() {
 				Successfully logged in
 			</AlertTitle>
 			<AlertDescription>
-				You are going to be redirected in {countdown}. Or if you're in
+				You are going to be redirected in {countdown}. Or if you&apos;re in
 				hurry, you can click here{" "}
 				<TransLink
 					href={process.env.NEXT_PUBLIC_HOMEPAGE as string}

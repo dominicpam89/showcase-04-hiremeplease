@@ -2,10 +2,12 @@
 import { ImgHTMLAttributes, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {}
 export default function ImageUI({ ...props }: Props) {
 	const [image, setImage] = useState(false);
 	const [error, setError] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 	error;
 	const onLoad = () => {
 		console.log("image is loaded successfully");

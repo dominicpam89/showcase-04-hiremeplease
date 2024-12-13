@@ -36,4 +36,5 @@ export async function getQuestions(): Promise<TypeQuestion<"fetch">[]> {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function addQuestion(question: TypeQuestion<"push">) {}
