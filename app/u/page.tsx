@@ -9,6 +9,7 @@ import type {
      TQuestionSortBy,
 } from "@/constant/page-u-search-params.constant"
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
 
 interface Props {
      searchParams: {
@@ -24,10 +25,16 @@ const isValidValue = <T extends Record<string, string>>(
      return Object.values(obj).includes(val)
 }
 
+const getPathname = (
+     filter: TQuestionFilter,
+     sortBy: TQuestionSortBy
+) => {
+     return `/u?filter=${filter}&sortBy=${sortBy}`
+}
+
 export default function Page({ searchParams }: Props) {
      const { filter, sortBy } = searchParams
 
-     const missingParams = !filter || !sortBy
      const invalidFilter = !isValidValue(
           filter,
           questionFilter
@@ -37,18 +44,33 @@ export default function Page({ searchParams }: Props) {
           questionSortBy
      )
 
-     if (missingParams || invalidFilter || invalidSortBy) {
-          const defaultFilter = questionFilter["question"]
-          const defaultSortBy = questionSortBy["newest"]
-          return redirect(
-               `/u?filter=${defaultFilter}&sortBy=${defaultSortBy}`
-          )
+     const missingFilter = !filter && sortBy
+     const missingSortBy = filter && !sortBy
+     const missingParams = !filter && !sortBy
+     if (missingFilter && !invalidSortBy) {
+          return redirect(getPathname("question", sortBy))
+     }
+     if (missingFilter && invalidSortBy) {
+          return redirect(getPathname("question", "newest"))
+     }
+     if (missingSortBy && !invalidFilter) {
+          return redirect(getPathname(filter, "newest"))
+     }
+     if (missingSortBy && invalidFilter) {
+          return redirect(getPathname("question", "newest"))
+     }
+     if (missingParams) {
+          return redirect(getPathname("question", "newest"))
      }
 
      return (
           <>
                <DashboardHeader />
-               <DashboardContent />
+               <Suspense
+                    fallback={<p>Loading skeleton...</p>}
+               >
+                    <DashboardContent />
+               </Suspense>
           </>
      )
 }

@@ -41,18 +41,17 @@ export default function DashboardHeaderFilter({
                router.push(
                     `${path}?filter=${val}&${sortByVal}`
                )
-               router.refresh()
           }
           if (paramsKey == "sortBy") {
                console.log("sortBy is changed")
                router.push(
                     `${path}?${filterVal}&sortBy=${val}`
                )
-               router.refresh()
           }
      }
      return (
           <Select
+               defaultValue={selected}
                onValueChange={onValueChange}
                value={selected}
           >

@@ -1,6 +1,5 @@
 import { getAnswers } from "@/lib/services/answer.service.mock"
 import DashboardContentAnswer from "./dashboard-content-answer"
-import { Suspense } from "react"
 
 interface Props {
      questionId: string
@@ -16,14 +15,12 @@ export default async function TopAnswers({
                aria-label="top-two-answers-container"
                className="space-y-4"
           >
-               <Suspense fallback={<p>Loading...</p>}>
-                    {answers.map((answer) => (
-                         <DashboardContentAnswer
-                              key={answer.id}
-                              answer={answer}
-                         />
-                    ))}
-               </Suspense>
+               {answers.map((answer) => (
+                    <DashboardContentAnswer
+                         key={answer.id}
+                         answer={answer}
+                    />
+               ))}
           </div>
      )
 }

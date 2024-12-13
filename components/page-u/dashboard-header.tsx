@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import SearchBarUI from "@/components/ui-custom/search-bar"
-import { Suspense } from "react"
 import {
      dashboardSelectItems,
      dashboardSortItems,
@@ -59,26 +58,18 @@ export default function PageHeader() {
                               "grid grid-cols-2 gap-2"
                          )}
                     >
-                         <Suspense
-                              fallback={<p>Loading...</p>}
-                         >
-                              <DashboardHeaderFilter
-                                   key="filter"
-                                   paramsKey="filter"
-                                   items={
-                                        dashboardSelectItems
-                                   }
-                                   selectText="Filter"
-                              />
-                              <DashboardHeaderFilter
-                                   key="sortBy"
-                                   paramsKey="sortBy"
-                                   items={
-                                        dashboardSortItems
-                                   }
-                                   selectText="Sort By"
-                              />
-                         </Suspense>
+                         <DashboardHeaderFilter
+                              key="filter"
+                              paramsKey="filter"
+                              items={dashboardSelectItems}
+                              selectText="Filter"
+                         />
+                         <DashboardHeaderFilter
+                              key="sortBy"
+                              paramsKey="sortBy"
+                              items={dashboardSortItems}
+                              selectText="Sort By"
+                         />
                     </div>
                </div>
           </div>

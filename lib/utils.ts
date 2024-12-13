@@ -12,8 +12,8 @@ export async function delayUtil(del: number = 200) {
 }
 
 export async function delayRangeUtil(
-     tMax: number = 5000,
-     tMin: number = 3000
+     tMax: number = 3760,
+     tMin: number = 2005
 ) {
      const randomTimer = Math.round(
           Math.random() * (tMax - tMin) + tMin
