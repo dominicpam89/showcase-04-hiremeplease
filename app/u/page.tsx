@@ -44,9 +44,6 @@ export default function Page({ searchParams }: Props) {
           questionSortBy
      )
 
-     console.log(invalidFilter)
-     console.log(invalidSortBy)
-
      const missingFilter = !filter && sortBy
      const missingSortBy = filter && !sortBy
      const missingParams = !filter && !sortBy

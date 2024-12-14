@@ -6,6 +6,8 @@ import {
      CardTitle,
 } from "@/components/ui/card"
 import CardDescriptionUser from "@/components/common/card-description-user"
+import sanitizeHtml from "sanitize-html"
+import { sanitizeHtmlOptions } from "@/lib/helpers/sanitizeHTML.helper"
 
 interface Props {
      answer: TypeAnswer<"fetch">
@@ -13,6 +15,10 @@ interface Props {
 export default function DashboardContentAnswer({
      answer,
 }: Props) {
+     const sanitizedAnswer = sanitizeHtml(
+          answer.answer,
+          sanitizeHtmlOptions
+     )
      return (
           <Card aria-label="card-answer">
                <CardHeader
@@ -30,9 +36,12 @@ export default function DashboardContentAnswer({
                     aria-label="card-answer-content"
                     className="pb-4"
                >
-                    <p className="text-sm">
-                         {answer.answer}
-                    </p>
+                    <div
+                         className="text-sm"
+                         dangerouslySetInnerHTML={{
+                              __html: sanitizedAnswer,
+                         }}
+                    ></div>
                </CardContent>
           </Card>
      )

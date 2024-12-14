@@ -37,13 +37,11 @@ export default function DashboardHeaderFilter({
                .toString()
                .split("&")
           if (paramsKey == "filter") {
-               console.log("filter is changed")
                router.replace(
                     `${path}?filter=${val}&${sortByVal}`
                )
           }
           if (paramsKey == "sortBy") {
-               console.log("sortBy is changed")
                router.replace(
                     `${path}?${filterVal}&sortBy=${val}`
                )

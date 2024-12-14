@@ -3,90 +3,90 @@ import { delayRangeUtil } from "../utils"
 
 const answersMock: TypeAnswerFetch[] = [
      {
-          id: "100", // Matches with the answerId from question 1
-          answer: "The capital of France is Paris.",
-          questionId: "1", // Matches the question ID in questionsMock
-          uid: "user_05", // Matches the user ID from users mock data
+          id: "100",
+          answer: "<p>The capital of France is <strong>Paris</strong>.</p>",
+          questionId: "1",
+          uid: "user_05",
           views: 120,
           upvotes: 10,
      },
      {
-          id: "105", // Matches with the answerId from question 1
-          answer: "Paris is known for its Eiffel Tower and historical landmarks.",
-          questionId: "1", // Matches the question ID in questionsMock
-          uid: "user_04", // Matches the user ID from users mock data
+          id: "105",
+          answer: "<p><strong>Paris</strong> is known for its <em>Eiffel Tower</em> and historical landmarks.</p>",
+          questionId: "1",
+          uid: "user_04",
           views: 150,
           upvotes: 15,
      },
      {
-          id: "101", // Matches with the answerId from question 2
-          answer: "Gravity is a force that attracts objects towards the center of the Earth.",
-          questionId: "2", // Matches the question ID in questionsMock
-          uid: "user_01", // Matches the user ID from users mock data
+          id: "101",
+          answer: "<p><strong>Gravity</strong> is a force that attracts objects towards the center of the Earth.</p>",
+          questionId: "2",
+          uid: "user_01",
           views: 180,
           upvotes: 20,
      },
      {
-          id: "106", // Matches with the answerId from question 2
-          answer: "It is described by Newton's law of universal gravitation.",
-          questionId: "2", // Matches the question ID in questionsMock
-          uid: "user_03", // Matches the user ID from users mock data
+          id: "106",
+          answer: "<p>It is described by <em>Newton's law of universal gravitation</em>.</p>",
+          questionId: "2",
+          uid: "user_03",
           views: 220,
           upvotes: 30,
      },
      {
-          id: "102", // Matches with the answerId from question 3
-          answer: "The best programming language for beginners is Python.",
-          questionId: "3", // Matches the question ID in questionsMock
-          uid: "user_03", // Matches the user ID from users mock data
+          id: "102",
+          answer: "<p>The best programming language for beginners is <strong>Python</strong>.</p>",
+          questionId: "3",
+          uid: "user_03",
           views: 250,
           upvotes: 35,
      },
      {
-          id: "103", // Matches with the answerId from question 4
-          answer: "Meditation helps reduce stress and improve focus.",
-          questionId: "4", // Matches the question ID in questionsMock
-          uid: "user_07", // Matches the user ID from users mock data
+          id: "103",
+          answer: "<p><strong>Meditation</strong> helps reduce stress and improve focus.</p>",
+          questionId: "4",
+          uid: "user_07",
           views: 200,
           upvotes: 25,
      },
      {
-          id: "107", // Matches with the answerId from question 4
-          answer: "Meditation is also beneficial for emotional regulation.",
-          questionId: "4", // Matches the question ID in questionsMock
-          uid: "user_01", // Matches the user ID from users mock data
+          id: "107",
+          answer: "<p><strong>Meditation</strong> is also beneficial for <em>emotional regulation</em>.</p>",
+          questionId: "4",
+          uid: "user_01",
           views: 240,
           upvotes: 30,
      },
      {
-          id: "104", // Matches with the answerId from question 5
-          answer: "Productivity at work can be improved by using time management techniques.",
-          questionId: "5", // Matches the question ID in questionsMock
-          uid: "user_06", // Matches the user ID from users mock data
+          id: "104",
+          answer: "<p>Productivity at work can be improved by using <strong>time management techniques</strong>.</p>",
+          questionId: "5",
+          uid: "user_06",
           views: 170,
           upvotes: 15,
      },
      {
-          id: "108", // Matches with the answerId from question 6
-          answer: "JavaScript is a dynamic language, while TypeScript is statically typed.",
-          questionId: "6", // Matches the question ID in questionsMock
-          uid: "user_03", // Matches the user ID from users mock data
+          id: "108",
+          answer: "<p><strong>JavaScript</strong> is a dynamic language, while <strong>TypeScript</strong> is statically typed.</p>",
+          questionId: "6",
+          uid: "user_03",
           views: 300,
           upvotes: 40,
      },
      {
-          id: "109", // Matches with the answerId from question 6
-          answer: "TypeScript offers better tooling and error detection compared to JavaScript.",
-          questionId: "6", // Matches the question ID in questionsMock
-          uid: "user_02", // Matches the user ID from users mock data
+          id: "109",
+          answer: "<p><strong>TypeScript</strong> offers better tooling and error detection compared to <strong>JavaScript</strong>.</p>",
+          questionId: "6",
+          uid: "user_02",
           views: 350,
           upvotes: 45,
      },
      {
-          id: "110", // Matches with the answerId from question 7
-          answer: "A strong password should be long, contain special characters, and avoid dictionary words.",
-          questionId: "7", // Matches the question ID in questionsMock
-          uid: "user_06", // Matches the user ID from users mock data
+          id: "110",
+          answer: "<p>A strong password should be long, contain special characters, and avoid dictionary words.</p>",
+          questionId: "7",
+          uid: "user_06",
           views: 210,
           upvotes: 18,
      },
