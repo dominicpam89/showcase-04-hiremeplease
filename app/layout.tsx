@@ -1,9 +1,10 @@
-import type { Metadata } from "next"
-import { Montserrat, Open_Sans } from "next/font/google"
 import "./globals.css"
 import ThemeProvider from "@/components/themes/theme-provider"
 import QueryClientProvider from "@/lib/context/tanstack.context"
 import ContextAuthProvider from "@/lib/context/auth.context"
+import type { Metadata } from "next"
+import { Montserrat, Open_Sans } from "next/font/google"
+import { Toaster } from "@/components/ui/sonner"
 
 const fontPrimary = Montserrat({
      subsets: ["latin"],
@@ -45,6 +46,10 @@ export default function RootLayout({
                     >
                          <QueryClientProvider>
                               <ContextAuthProvider>
+                                   <Toaster
+                                        expand
+                                        position="top-center"
+                                   />
                                    {children}
                               </ContextAuthProvider>
                          </QueryClientProvider>

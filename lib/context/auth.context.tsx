@@ -12,6 +12,7 @@ import { ContextAuthType } from "@/lib/types/auth.context.type"
 import { auth } from "@/firebase.config"
 import { onAuthStateChanged } from "firebase/auth"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export const ContextAuth =
      createContext<ContextAuthType | null>(null)
@@ -26,19 +27,41 @@ export default function ContextAuthProvider({
 
      const signinState = useMutation({
           mutationFn: loginWithPassword,
-          onSuccess: () => {
+          onMutate() {
+               toast("Logging in progress...")
+          },
+          onError(error) {
+               toast.error(error.message)
+          },
+          onSuccess() {
+               toast.success(
+                    "You're going to be redirected to redirect page"
+               )
                router.push("/auth/success?type=login")
           },
      })
      const signupState = useMutation({
           mutationFn: registerWithPassword,
+          onMutate() {
+               toast("Verifying your data...")
+          },
+          onError(error) {
+               toast.error(error.message)
+          },
           onSuccess: () => {
+               toast.success(
+                    "You're successfully registered"
+               )
                router.push("/auth/success?type=register")
           },
      })
      const signoutState = useMutation({
           mutationFn: logout,
+          onMutate() {
+               toast("Signout your account...")
+          },
           onSuccess: () => {
+               toast.success("You're logged out")
                router.push("/login")
           },
      })
@@ -60,6 +83,7 @@ export default function ContextAuthProvider({
                }
           )
           return () => unsubscribe() // Clean up
+          // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [auth])
 
      return (
