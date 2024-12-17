@@ -6,6 +6,7 @@ import {
      dashboardSortItems,
 } from "@/constant/page-header-filter.constant"
 import DashboardHeaderFilter from "./dashboard-header/filter"
+import Link from "next/link"
 
 export default function PageHeader() {
      return (
@@ -28,7 +29,11 @@ export default function PageHeader() {
                     >
                          Questions
                     </h2>
-                    <Button size="sm">Ask Question</Button>
+                    <Button size="sm" asChild>
+                         <Link href="/u/ask-question">
+                              Ask Question
+                         </Link>
+                    </Button>
                </div>
                <div
                     aria-label="header-row-2"
