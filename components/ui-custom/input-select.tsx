@@ -6,7 +6,6 @@ import {
      SelectItem,
      SelectContent,
 } from "@/components/ui-custom/select"
-import { useCategories } from "@/lib/hooks/useCategories"
 import {
      ControllerRenderProps,
      FieldValues,
@@ -19,62 +18,48 @@ import {
      FormMessage,
 } from "@/components/ui/form"
 
-interface Props<T extends FieldValues> {
-     field: ControllerRenderProps<T, Path<T>>
+interface Item {
+     id: string
+     val: string
+     text?: string
 }
-export default function InputSelect<T extends FieldValues>({
-     field,
-}: Props<T>) {
-     const { isError, isFetching, data, error } =
-          useCategories()
-     if (isError) {
-          return (
-               <p className="text-destructive text-sm">
-                    {error.message}
-               </p>
-          )
-     }
+
+interface Props<T extends FieldValues, K extends Item> {
+     field: ControllerRenderProps<T, Path<T>>
+     label?: string
+     placeholder: string
+     items: Array<K>
+}
+export default function InputSelect<
+     T extends FieldValues,
+     K extends Item,
+>({ field, label, placeholder, items }: Props<T, K>) {
      return (
           <FormItem>
-               <FormLabel>Category</FormLabel>
+               {label && <FormLabel>{label}</FormLabel>}
                <Select
                     onValueChange={field.onChange}
                     value={field.value}
                >
                     <FormControl>
                          <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select category for your question" />
+                              <SelectValue
+                                   placeholder={placeholder}
+                              />
                          </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                         {isFetching && !data && (
-                              <LoadingCategories />
-                         )}
-                         {data &&
-                              data.map((cat) => (
-                                   <SelectItem
-                                        key={cat.id}
-                                        value={cat.val}
-                                   >
-                                        {cat.val}
-                                   </SelectItem>
-                              ))}
+                         {items.map((cat) => (
+                              <SelectItem
+                                   key={cat.id}
+                                   value={cat.val}
+                              >
+                                   {cat.text || cat.val}
+                              </SelectItem>
+                         ))}
                     </SelectContent>
                </Select>
                <FormMessage className="text-xs" />
           </FormItem>
-     )
-}
-
-function LoadingCategories() {
-     return (
-          <div
-               aria-label="loading-component"
-               className="p-4"
-          >
-               <p className="text-sm">
-                    Loading categories...
-               </p>
-          </div>
      )
 }

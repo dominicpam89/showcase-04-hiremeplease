@@ -11,8 +11,9 @@ import {
      askQuestionSchema,
 } from "@/lib/models/frontend/question.model"
 import { zodResolver } from "@hookform/resolvers/zod"
-import InputSelect from "@/components/ui-custom/input-select"
 import { FormField } from "@/components/ui/form"
+import { useCategories } from "@/lib/hooks/useCategories"
+import SelectQuestionCategory from "./select-question-category"
 
 interface Props {
      uid: string
@@ -28,7 +29,7 @@ export default function AskQuestionForm({ uid }: Props) {
           mode: "onBlur",
           reValidateMode: "onChange",
      })
-
+     const categoryState = useCategories()
      const onValid: SubmitHandler<TypeAskQuestionSchema> = (
           data
      ) => {
@@ -52,9 +53,9 @@ export default function AskQuestionForm({ uid }: Props) {
                     <FormField
                          control={hookForm.control}
                          name="category"
-                         render={({ field }) => (
-                              <InputSelect<TypeAskQuestionSchema>
-                                   field={field}
+                         render={(params) => (
+                              <SelectQuestionCategory<TypeAskQuestionSchema>
+                                   {...params}
                               />
                          )}
                     />
