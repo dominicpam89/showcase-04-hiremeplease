@@ -7,6 +7,7 @@ import {
      useFormContext,
 } from "react-hook-form"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
 interface InputGroupProps<T extends FieldValues> {
      placeholder: string
@@ -37,7 +38,11 @@ export default function InputField<T extends FieldValues>({
                {label && (
                     <Label
                          htmlFor={name}
-                         className="text-gray-500"
+                         className={cn("text-gray-500", {
+                              "text-destructive": errors[
+                                   name
+                              ] as FieldError,
+                         })}
                     >
                          {label}
                     </Label>
@@ -57,7 +62,7 @@ export default function InputField<T extends FieldValues>({
                     />
                </div>
                {errors[name] && (
-                    <p className="text-sm text-destructive transition-default">
+                    <p className="text-xs text-destructive transition-default">
                          {
                               (errors[name] as FieldError)
                                    ?.message

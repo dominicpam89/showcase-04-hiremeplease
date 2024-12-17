@@ -6,12 +6,13 @@ import {
 } from "react-hook-form"
 import InputField from "@/components/ui-custom/input-field"
 import { Button } from "@/components/ui/button"
-import InputFieldArray from "@/components/ui-custom/input-field-array"
 import {
      TypeAskQuestionSchema,
      askQuestionSchema,
 } from "@/lib/models/frontend/question.model"
 import { zodResolver } from "@hookform/resolvers/zod"
+import InputSelect from "@/components/ui-custom/input-select"
+import { FormField } from "@/components/ui/form"
 
 interface Props {
      uid: string
@@ -21,7 +22,7 @@ export default function AskQuestionForm({ uid }: Props) {
           resolver: zodResolver(askQuestionSchema),
           defaultValues: {
                question: "",
-               tags: "",
+               category: "",
                uid,
           },
           mode: "onBlur",
@@ -48,10 +49,14 @@ export default function AskQuestionForm({ uid }: Props) {
                          label="Your Question"
                          placeholder="why the developer of this webapp is so handsome?"
                     />
-                    <InputFieldArray<TypeAskQuestionSchema>
-                         name="tags"
-                         label="Tags"
-                         placeholder="Enter with comma"
+                    <FormField
+                         control={hookForm.control}
+                         name="category"
+                         render={({ field }) => (
+                              <InputSelect<TypeAskQuestionSchema>
+                                   field={field}
+                              />
+                         )}
                     />
                     <input
                          {...hookForm.register("uid")}

@@ -76,7 +76,7 @@ export default function InputField<T extends FieldValues>({
                     </Button>
                </div>
                {errors[name] && (
-                    <p className="text-sm text-destructive transition-default">
+                    <p className="text-xs text-destructive transition-default">
                          {
                               (errors[name] as FieldError)
                                    ?.message

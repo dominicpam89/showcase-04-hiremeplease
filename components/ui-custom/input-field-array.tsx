@@ -128,7 +128,7 @@ export default function InputFieldArray<
                     </div>
                </div>
                {errors[name] && (
-                    <p className="text-sm text-destructive transition-default">
+                    <p className="text-xs text-destructive transition-default">
                          {
                               (errors[name] as FieldError)
                                    ?.message
