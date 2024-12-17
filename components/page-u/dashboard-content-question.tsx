@@ -13,6 +13,8 @@ import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
 import TopAnswers from "./dashboard-content-answers"
 import { Suspense } from "react"
+import CardDescriptionUserSkeleton from "@/components/common/card-description-user.skeleton"
+import TopAnswersSkeleton from "./dashboard-content-answers.skeleton"
 
 interface Props {
      question: TypeQuestion<"fetch">
@@ -34,16 +36,18 @@ export default function Question({ question }: Props) {
                     >
                          {question.question}
                     </CardTitle>
-                    <CardDescription aria-label="question-card-description">
-                         <Suspense
-                              fallback={<TempSkeleton />}
-                              key="user-suspense"
-                         >
+                    <Suspense
+                         fallback={
+                              <CardDescriptionUserSkeleton />
+                         }
+                         key="user-suspense"
+                    >
+                         <CardDescription aria-label="question-card-description">
                               <CardDescriptionUser
                                    uid={question.uid}
                               />
-                         </Suspense>
-                    </CardDescription>
+                         </CardDescription>
+                    </Suspense>
                     <DashboardContentTags
                          tags={question.tags}
                     />
@@ -53,7 +57,7 @@ export default function Question({ question }: Props) {
                     className="pb-0"
                >
                     <Suspense
-                         fallback={<TempSkeleton />}
+                         fallback={<TopAnswersSkeleton />}
                          key="answers-suspense"
                     >
                          <TopAnswers
@@ -76,8 +80,4 @@ export default function Question({ question }: Props) {
                </CardFooter>
           </Card>
      )
-}
-
-function TempSkeleton() {
-     return <span>Loading...</span>
 }

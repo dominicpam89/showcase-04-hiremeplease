@@ -1,3 +1,4 @@
+import DashboardContentSkeleton from "@/components/page-u/dashboard-content.skeleton"
 import DashboardContent from "@/components/page-u/dashboard-content"
 import DashboardHeader from "@/components/page-u/dashboard-header"
 import {
@@ -73,7 +74,7 @@ export default function Page({ searchParams }: Props) {
           <>
                <DashboardHeader />
                <Suspense
-                    fallback={<p>Loading skeleton...</p>}
+                    fallback={<DashboardContentSkeleton />}
                >
                     <DashboardContent />
                </Suspense>
