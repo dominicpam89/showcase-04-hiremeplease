@@ -14,27 +14,22 @@ export default function TopAnswersSkeleton() {
                aria-label="top-two-answers-container"
                className="space-y-4"
           >
-               {["answer1", "answer2"].map((answer) => (
-                    <Card
-                         aria-label="card-answer"
-                         key={answer}
+               <Card aria-label="card-answer">
+                    <CardHeader
+                         aria-label="card-answer-header"
+                         className="py-2 px-6"
                     >
-                         <CardHeader
-                              aria-label="card-answer-header"
-                              className="py-2 px-6"
-                         >
-                              <CardTitle />
-                              <CardDescription />
-                              <CardDescriptionUserSkeleton />
-                         </CardHeader>
-                         <CardContent
-                              aria-label="card-answer-content"
-                              className="pb-4"
-                         >
-                              <Skeleton className="w-full h-6" />
-                         </CardContent>
-                    </Card>
-               ))}
+                         <CardTitle />
+                         <CardDescription />
+                         <CardDescriptionUserSkeleton />
+                    </CardHeader>
+                    <CardContent
+                         aria-label="card-answer-content"
+                         className="pb-4"
+                    >
+                         <Skeleton className="w-full h-6" />
+                    </CardContent>
+               </Card>
           </div>
      )
 }
