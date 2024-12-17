@@ -6,8 +6,17 @@ type TQuestionMock = TypeQuestion<"fetch">
 const questionsMock: TQuestionMock[] = [
      {
           id: "1",
-          question: "What is the capital of France?",
-          tags: ["geography", "countries"],
+          question: "<h2>Human Skin</h2>",
+          detail: `<div>
+                    <ol>
+                         <li>Why is human skin easily to burnt?</li>
+                         <li>What's the best medicine to cure fungi?</li>
+               
+                    </ol>
+               </div>`,
+          categoryId: "01",
+          imageUrl:
+               "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_01",
           answerIds: ["100", "105"],
           views: 150,
@@ -15,8 +24,17 @@ const questionsMock: TQuestionMock[] = [
      },
      {
           id: "2",
-          question: "How does gravity work?",
-          tags: ["science", "physics"],
+          question: ".<h3>Gravity</h3>",
+          detail: `<div>
+               <p>I don't quite understand about gravity. My teacher asked us to write paper about this. Please help!</p>
+               <ol>
+                    <li>Is it invisible force?</li>
+                    <li>Can you describe more about the speed of gravity?</li>
+               </ol>
+          </div>`,
+          imageUrl:
+               "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
+          categoryId: "02",
           uid: "user_02",
           answerIds: ["101", "106"],
           views: 200,
@@ -25,8 +43,17 @@ const questionsMock: TQuestionMock[] = [
      {
           id: "3",
           question:
-               "What is the best programming language for beginners?",
-          tags: ["programming", "beginners"],
+               "<h3>What is the best programming language for beginners?</h3>",
+          detail: `<div>
+                    <ol>
+                         <li>What's the trend in 2025?</li>
+                         <li>Which one to pick for beginner?</li>
+               
+                    </ol>
+               </div>`,
+          categoryId: "03",
+          imageUrl:
+               "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_03",
           answerIds: ["102"],
           views: 300,
@@ -35,7 +62,7 @@ const questionsMock: TQuestionMock[] = [
      {
           id: "4",
           question: "What are the benefits of meditation?",
-          tags: ["health", "mindfulness"],
+          categoryId: "04",
           uid: "user_04",
           answerIds: ["103", "107"],
           views: 250,
@@ -44,7 +71,9 @@ const questionsMock: TQuestionMock[] = [
      {
           id: "5",
           question: "How to improve productivity at work?",
-          tags: ["productivity", "work"],
+          categoryId: "05",
+          imageUrl:
+               "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_05",
           answerIds: ["104"],
           views: 180,
@@ -54,7 +83,9 @@ const questionsMock: TQuestionMock[] = [
           id: "6",
           question:
                "What are the key differences between JavaScript and TypeScript?",
-          tags: ["programming", "typescript", "javascript"],
+          categoryId: "06",
+          imageUrl:
+               "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_06",
           answerIds: ["108", "109"],
           views: 400,
@@ -64,7 +95,7 @@ const questionsMock: TQuestionMock[] = [
           id: "7",
           question:
                "What are the best practices for secure password management?",
-          tags: ["security", "password"],
+          categoryId: "07",
           uid: "user_07",
           answerIds: ["110"],
           views: 220,

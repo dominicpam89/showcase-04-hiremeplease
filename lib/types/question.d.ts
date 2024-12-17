@@ -2,7 +2,9 @@
 
 type TypeQuestionPush = {
      question: string
-     tags: string[]
+     detail?: string
+     imageUrl?: string
+     categoryId: TypeCategory<"fetch">["id"]
      uid: string // author firebase user's id
 }
 
