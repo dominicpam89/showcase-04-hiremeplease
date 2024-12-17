@@ -6,7 +6,7 @@ export default async function DashboardContent() {
      return (
           <div
                aria-label="dashboard-content"
-               className="mt-8 flex flex-col gap-5"
+               className="mt-8 flex flex-col gap-5 mb-16"
           >
                {questions.map((question) => (
                     <Question

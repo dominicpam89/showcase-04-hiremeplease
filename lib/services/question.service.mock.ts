@@ -6,15 +6,14 @@ type TQuestionMock = TypeQuestion<"fetch">
 const questionsMock: TQuestionMock[] = [
      {
           id: "1",
-          question: "<h2>Human Skin</h2>",
+          question: "<h3>Human Skin</h3>",
           detail: `<div>
-                    <ol>
+                    <ol style="list-style-type:decimal; padding-left:16px;">
                          <li>Why is human skin easily to burnt?</li>
                          <li>What's the best medicine to cure fungi?</li>
-               
                     </ol>
                </div>`,
-          categoryId: "01",
+          categoryId: "1",
           imageUrl:
                "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_01",
@@ -24,17 +23,17 @@ const questionsMock: TQuestionMock[] = [
      },
      {
           id: "2",
-          question: ".<h3>Gravity</h3>",
+          question: "<h3>Gravity</h3>",
           detail: `<div>
                <p>I don't quite understand about gravity. My teacher asked us to write paper about this. Please help!</p>
-               <ol>
+               <ol style="list-style-type:decimal; padding-left:16px;">
                     <li>Is it invisible force?</li>
                     <li>Can you describe more about the speed of gravity?</li>
                </ol>
           </div>`,
           imageUrl:
                "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
-          categoryId: "02",
+          categoryId: "2",
           uid: "user_02",
           answerIds: ["101", "106"],
           views: 200,
@@ -45,13 +44,13 @@ const questionsMock: TQuestionMock[] = [
           question:
                "<h3>What is the best programming language for beginners?</h3>",
           detail: `<div>
-                    <ol>
+                    <ol style="list-style-type:decimal; padding-left:16px;">
                          <li>What's the trend in 2025?</li>
                          <li>Which one to pick for beginner?</li>
                
                     </ol>
                </div>`,
-          categoryId: "03",
+          categoryId: "3",
           imageUrl:
                "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_03",
@@ -61,8 +60,9 @@ const questionsMock: TQuestionMock[] = [
      },
      {
           id: "4",
-          question: "What are the benefits of meditation?",
-          categoryId: "04",
+          question:
+               "<h3>What are the benefits of meditation?</h3>",
+          categoryId: "4",
           uid: "user_04",
           answerIds: ["103", "107"],
           views: 250,
@@ -70,8 +70,9 @@ const questionsMock: TQuestionMock[] = [
      },
      {
           id: "5",
-          question: "How to improve productivity at work?",
-          categoryId: "05",
+          question:
+               "<h3>How to improve productivity at work?</h3>",
+          categoryId: "5",
           imageUrl:
                "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_05",
@@ -82,8 +83,8 @@ const questionsMock: TQuestionMock[] = [
      {
           id: "6",
           question:
-               "What are the key differences between JavaScript and TypeScript?",
-          categoryId: "06",
+               "<h3>What are the key differences between JavaScript and TypeScript?</h3>",
+          categoryId: "6",
           imageUrl:
                "https://fakeimg.pl/480x320/f5e9ba/1f1c1c?text=Placeholder&font=bebas&font_size=32",
           uid: "user_06",
@@ -94,8 +95,8 @@ const questionsMock: TQuestionMock[] = [
      {
           id: "7",
           question:
-               "What are the best practices for secure password management?",
-          categoryId: "07",
+               "<h3>What are the best practices for secure password management?</h3>",
+          categoryId: "7",
           uid: "user_07",
           answerIds: ["110"],
           views: 220,
