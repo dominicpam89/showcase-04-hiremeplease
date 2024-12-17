@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { Input } from "@/components/ui/input"
 import {
@@ -16,6 +17,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { generateRandomId } from "@/lib/utils"
 import { useCallback } from "react"
+import InputFieldArrayHelper from "./input-field-array-helper"
 
 interface InputGroupProps<T extends FieldValues> {
      placeholder: string
@@ -75,6 +77,7 @@ export default function InputFieldArray<
      }, [userInput])
      // Set value of real input that is hooked by react hook form
      useEffect(() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           setValue(name, tags.join(",") as any)
      }, [tags])
 
@@ -86,9 +89,10 @@ export default function InputFieldArray<
                {label && (
                     <Label
                          htmlFor="user-input"
-                         className="text-gray-500"
+                         className="text-gray-500 flex items-center gap-2"
                     >
                          {label}
+                         <InputFieldArrayHelper />
                     </Label>
                )}
                <div className="w-full flex gap-2 items-center">
@@ -158,7 +162,10 @@ function TagsUI({ tags, mutateTags }: TagsProps) {
           [tagsWithId]
      )
      return (
-          <div aria-label="tags" className="flex gap-2">
+          <div
+               aria-label="tags"
+               className="flex gap-2 cursor-pointer"
+          >
                {tagsWithId.map((tag) => {
                     return (
                          <Badge
