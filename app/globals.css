@@ -83,4 +83,7 @@
      .blockquote {
           @apply font-secondary mt-6 border-l-2 pl-6 italic;
      }
+     .transition-default {
+          @apply transition-all duration-300 ease-in-out;
+     }
 }

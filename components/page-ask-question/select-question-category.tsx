@@ -35,12 +35,9 @@ export default function SelectQuestionCategory<
           )
      }
      if (isError) {
-          return (
-               <div aria-label="error-fetching-data">
-                    <p className="text-sm text-destructive">
-                         {error.message}
-                    </p>
-               </div>
+          throw new Error(
+               error?.message ||
+                    "Couldn't render some components"
           )
      }
      return (

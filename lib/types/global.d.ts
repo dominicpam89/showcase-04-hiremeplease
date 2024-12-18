@@ -1,3 +1,8 @@
+declare type ErrorBoundaryProps = {
+     error: Error & { digest?: string }
+     reset: () => void
+}
+
 declare type TypeSize = "sm" | "md" | "lg"
 
 declare type TypeNavItem = {
