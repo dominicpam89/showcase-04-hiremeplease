@@ -13,6 +13,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormField } from "@/components/ui/form"
 import SelectQuestionCategory from "./select-question-category"
+import InputTextEditor from "./input-text-editor"
 
 interface Props {
      uid: string
@@ -23,6 +24,7 @@ export default function AskQuestionForm({ uid }: Props) {
           defaultValues: {
                question: "",
                category: "",
+               detail: "",
                uid,
           },
           mode: "onBlur",
@@ -53,6 +55,15 @@ export default function AskQuestionForm({ uid }: Props) {
                          name="category"
                          render={(params) => (
                               <SelectQuestionCategory<TypeAskQuestionSchema>
+                                   {...params}
+                              />
+                         )}
+                    />
+                    <FormField
+                         control={hookForm.control}
+                         name="detail"
+                         render={(params) => (
+                              <InputTextEditor<TypeAskQuestionSchema>
                                    {...params}
                               />
                          )}

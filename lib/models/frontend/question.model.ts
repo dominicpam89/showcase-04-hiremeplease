@@ -11,6 +11,7 @@ export const askQuestionSchema = z.object({
      category: z
           .string()
           .min(1, "Category must be selected"),
+     detail: z.string().min(10, "Minimum 10 characters"),
      uid: z.string().min(1, "uid is missing!"),
 })
 export type TypeAskQuestionSchema = z.infer<
