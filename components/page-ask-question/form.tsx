@@ -40,7 +40,7 @@ export default function AskQuestionForm({ uid }: Props) {
           <FormProvider {...hookForm}>
                <form
                     name="form-login"
-                    className="w-full flex flex-col gap-4"
+                    className="w-full flex flex-col gap-6 mb-16"
                     onSubmit={hookForm.handleSubmit(
                          onValid
                     )}
@@ -59,15 +59,7 @@ export default function AskQuestionForm({ uid }: Props) {
                               />
                          )}
                     />
-                    <FormField
-                         control={hookForm.control}
-                         name="detail"
-                         render={(params) => (
-                              <InputTextEditor<TypeAskQuestionSchema>
-                                   {...params}
-                              />
-                         )}
-                    />
+                    <InputTextEditor />
                     <input
                          {...hookForm.register("uid")}
                          className="hidden"
