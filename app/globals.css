@@ -2,26 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer utilities {
+     .text-balance {
+          text-wrap: balance;
+     }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer base {
+     :root {
+          --background: 170 35% 100%;
+          --foreground: 170 78% 5%;
+          --muted: 170 21% 93%;
+          --muted-foreground: 170 11% 39%;
+          --popover: 0 0% 99%;
+          --popover-foreground: 170 78% 4%;
+          --card: 0 0% 99%;
+          --card-foreground: 170 78% 4%;
+          --border: 170 3% 91%;
+          --input: 170 3% 91%;
+          --primary: 170 16% 11%;
+          --primary-foreground: 170 16% 71%;
+          --secondary: 170 13% 88%;
+          --secondary-foreground: 170 13% 28%;
+          --accent: 170 20% 82%;
+          --accent-foreground: 170 20% 22%;
+          --destructive: 13 99% 20%;
+          --destructive-foreground: 13 99% 80%;
+          --ring: 170 16% 11%;
+          --radius: 0.5rem;
+     }
+
+     .dark {
+          --background: 170 36% 2%;
+          --foreground: 170 19% 99%;
+          --muted: 170 21% 7%;
+          --muted-foreground: 170 11% 61%;
+          --popover: 170 36% 3%;
+          --popover-foreground: 0 0% 100%;
+          --card: 170 36% 3%;
+          --card-foreground: 0 0% 100%;
+          --border: 170 3% 14%;
+          --input: 170 3% 14%;
+          --primary: 170 16% 11%;
+          --primary-foreground: 170 16% 71%;
+          --secondary: 170 5% 14%;
+          --secondary-foreground: 170 5% 74%;
+          --accent: 170 15% 23%;
+          --accent-foreground: 170 15% 83%;
+          --destructive: 13 99% 49%;
+          --destructive-foreground: 0 0% 100%;
+          --ring: 170 16% 11%;
+     }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+     * {
+          @apply border-border;
+     }
+     body {
+          @apply bg-background text-foreground;
+     }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+     .heading-1 {
+          @apply font-primary scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+     }
+     .heading-2 {
+          @apply font-primary scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+     }
+     .heading-3 {
+          @apply font-primary scroll-m-20 text-2xl font-semibold tracking-tight;
+     }
+     .heading-4 {
+          @apply font-primary scroll-m-20 text-xl font-semibold tracking-tight;
+     }
+     .paragraph {
+          @apply font-secondary leading-7 [&:not(:first-child)]:mt-6;
+     }
+     .blockquote {
+          @apply font-secondary mt-6 border-l-2 pl-6 italic;
+     }
+     .transition-default {
+          @apply transition-all duration-300 ease-in-out;
+     }
 }
